@@ -1,17 +1,35 @@
 package me.leojlindo.travelbud;
 
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -20,6 +38,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onMapReady: map is ready");
         mMap = googleMap;
+
+        if (mLocationPermissionsGranted) {
+            getDeviceLocation();
+
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                return;
+            }
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+            //if permission is granted then initialize everything
+            init();
+        }
     }
 
     private static final String TAG = "MapActivity";
@@ -28,16 +60,100 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final String COARSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_CODE = 1234;
 
+    //widgets
+    private EditText searchInput;
+
     private boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        searchInput = (EditText) findViewById(R.id.search_input);
 
         getLocationPermission();
+    }
+
+    private void init() {
+        Log.d(TAG, "init: initializing");
+        //letting user hit 'enter' to enter location
+        searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+
+                    //execute method for searching location
+                    geoLocate();
+                }
+                return false;
+            }
+        });
+    }
+
+    //geolocating the string the user entered into search
+    private void geoLocate() {
+        Log.d(TAG, "geoLocate: geolocating");
+        String searchString = searchInput.getText().toString();
+        Geocoder geocoder = new Geocoder(MapActivity.this);
+        List<Address> list = new ArrayList<>();
+        try {
+            list = geocoder.getFromLocationName(searchString, 1);
+        } catch (IOException e) {
+            Log.e(TAG, "geoLocate: IOException" + e.getMessage());
+        }
+
+        if (list.size() > 0) {
+            Address address = list.get(0);
+            Log.d(TAG, "geoLocate: found a location: " + address.toString());
+
+            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), 15f, address.getAddressLine(0));
+        }
+    }
+
+    private void getDeviceLocation() {
+        Log.d(TAG,"getDeviceLocation: getting current location");
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        try {
+            if (mLocationPermissionsGranted) {
+                Task location = mFusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "onComplete: found location");
+                            Location currentLocation = (Location) task.getResult();
+
+                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                    15f, "My location");
+                        } else {
+                            Log.d(TAG, "onComplete: current location is null");
+                            Toast.makeText(MapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e) {
+            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
+        }
+    }
+
+    //zooming in and out of map and moving camera focus to the location
+    private void moveCamera(LatLng latLng, float zoom, String title) {
+        Log.d(TAG, "moveCamera: moving the camera to: latitude: " + latLng.latitude + ", longitude: " + latLng.longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
+        MarkerOptions options = new MarkerOptions()
+                .position(latLng)
+                .title(title);
+        mMap.addMarker(options);
+
     }
 
     private void initMap() {
@@ -45,10 +161,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
+
     }
 
     //checking permissions
     private void getLocationPermission() {
+        Log.d(TAG, "getLocationPermission: getting getting location permission");
         String[] permissions = {android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION};
 
@@ -57,10 +175,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                     COARSE_LOCATION) == PackageManager.PERMISSION_DENIED) {
                 mLocationPermissionsGranted = true;
+                initMap();
             } else {
                 ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_CODE);
 
             }
+        } else {
+            ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_CODE);
+
         }
     }
 
