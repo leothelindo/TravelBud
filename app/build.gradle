@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
+        multiDexEnabled true
         applicationId "me.leojlindo.travelbud"
         minSdkVersion 19
         targetSdkVersion 28
@@ -29,4 +30,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //google play services
+    implementation 'com.google.android.gms:play-services:11.4.0'
+    implementation 'com.android.support:multidex:1.0.3'
+
+
 }
