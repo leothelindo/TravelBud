@@ -14,6 +14,9 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        // hides the action bar
+        getSupportActionBar().hide();
+
 
         // connecting sign up button to the main page after signing up
         Button sign_up_btn = (Button) findViewById(R.id.Sign_up_btn);
