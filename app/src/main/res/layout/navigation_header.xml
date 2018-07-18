@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="?attr/colorPrimaryDark">
+
+    <TextView
+        android:id="@+id/firstname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="16dp"
+        android:text="First Name"
+        android:textColor="?android:attr/colorBackground"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/profilepic_iv"
+        android:layout_width="68dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="28dp"
+        app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_005" />
+
+    <TextView
+        android:id="@+id/lastname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/profilepic_iv"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="86dp"
+        android:text="Last Name"
+        android:textColor="?attr/colorPrimary" />
+</RelativeLayout>
