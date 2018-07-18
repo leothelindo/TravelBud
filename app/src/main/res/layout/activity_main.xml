@@ -7,29 +7,45 @@
     android:id="@+id/drawer"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center|bottom">
 
+        <include
+            layout="@layout/navigation_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <Button
+            android:id="@+id/map_btn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_horizontal|center"
+            android:layout_marginBottom="41dp"
+            android:layout_marginEnd="36dp"
+            android:layout_weight="1"
+            android:text="Map" />
 
-    </LinearLayout>
-    <Button
-        android:id="@+id/map_btn"
-        android:layout_width="204dp"
-        android:layout_height="72dp"
-        android:layout_weight="1"
-        android:text="Map" />
+
+    </RelativeLayout>
+
+
+
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:menu="@menu/nav_menu"
         android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
 
         >
     </android.support.design.widget.NavigationView>
