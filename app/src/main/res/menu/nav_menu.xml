@@ -11,12 +11,17 @@
             android:icon="@drawable/ic_launcher_background">
         </item>
 
+        <item android:id="@+id/message"
+            android:title="Messages">
+        </item>
+
+        <item android:id="@+id/help"
+            android:title="Help">
+        </item>
+
         <item android:id="@+id/setting"
             android:title="Settings">
         </item>
 
-        <item android:id="@+id/message"
-            android:title="Messages">
-        </item>
     </group>
 </menu>

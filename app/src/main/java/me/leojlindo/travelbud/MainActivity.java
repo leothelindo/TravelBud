@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     Fragment homeFragment = new HomeFragment();
     Fragment settingFragment = new SettingFragment();
     Fragment messageFragment = new MessageFragment();
+
+    TextView firstname_tv;
+    TextView lastname_tv;
 
 
 

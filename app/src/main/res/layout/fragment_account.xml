@@ -11,9 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="64dp"
-        android:text="Account"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="22dp"
+        android:text="Account Info"
+        android:textColor="@color/colorPrimary"
+        android:textSize="28sp"
+        android:textStyle="bold"
         tools:layout_editor_absoluteX="114dp"
         tools:layout_editor_absoluteY="189dp" />
 
@@ -25,4 +28,41 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="45dp"
         android:text="Sign Out" />
+
+    <TextView
+        android:id="@+id/first_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="109dp"
+        android:layout_marginTop="73dp"
+        android:text="First" />
+
+    <TextView
+        android:id="@+id/last_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/first_tv"
+        android:layout_marginTop="103dp"
+        android:text="Last" />
+
+    <TextView
+        android:id="@+id/phone_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/first_tv"
+        android:layout_marginTop="135dp"
+        android:text="Phone" />
+
+    <TextView
+        android:id="@+id/bio_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="181dp"
+        android:text="biography" />
 </RelativeLayout>
