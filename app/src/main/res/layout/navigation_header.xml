@@ -19,11 +19,11 @@
 
     <ImageView
         android:id="@+id/profilepic_iv"
-        android:layout_width="68dp"
-        android:layout_height="50dp"
+        android:layout_width="86dp"
+        android:layout_height="78dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="26dp"
         app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_005" />
 
     <TextView

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -65,4 +66,13 @@
         android:layout_alignStart="@+id/textView2"
         android:layout_marginTop="181dp"
         android:text="biography" />
+
+    <ImageView
+        android:id="@+id/prof_iv"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginStart="18dp"
+        app:srcCompat="@drawable/cast_expanded_controller_seekbar_thumb" />
 </RelativeLayout>

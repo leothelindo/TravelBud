@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ public class AccountFragment extends Fragment {
     TextView firstname_tv;
     TextView lastname_tv;
     TextView phone_tv;
+    ImageView prof_iv;
 
     //onCreateView method is called when Fragment should create its View object hierarchy,
     @Override
@@ -37,6 +39,9 @@ public class AccountFragment extends Fragment {
         lastname_tv.setText(ParseUser.getCurrentUser().get("lastName").toString());
         phone_tv = (TextView) view.findViewById(R.id.phone_tv);
         phone_tv.setText(ParseUser.getCurrentUser().get("phoneNum").toString());
+        prof_iv = (ImageView) view.findViewById(R.id.prof_iv);
+        // set up profile picture from parse
+        //prof_iv.setImageBitmap(ParseUser.getCurrentUser().get("picture"));
 
 
         signOut_btn = (Button) view.findViewById(R.id.signOut_btn);
