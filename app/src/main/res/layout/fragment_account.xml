@@ -16,4 +16,13 @@
         android:text="Account"
         tools:layout_editor_absoluteX="114dp"
         tools:layout_editor_absoluteY="189dp" />
+
+    <Button
+        android:id="@+id/signOut_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="45dp"
+        android:text="Sign Out" />
 </RelativeLayout>
