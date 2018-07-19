@@ -11,8 +11,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +65,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     //widgets
     private EditText searchInput;
+    private ImageView mapGps;
 
     private boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
@@ -73,6 +77,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         searchInput = (EditText) findViewById(R.id.search_input);
+        mapGps = findViewById(R.id.ic_gps);
 
         getLocationPermission();
     }
@@ -94,6 +99,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return false;
             }
         });
+
+        //going back to 'my location' when gps icon clicked
+        mapGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: clicked gps icon");
+                getDeviceLocation();
+            }
+        });
+
+        hideSoftKeyboard();
     }
 
     //geolocating the string the user entered into search
@@ -149,11 +165,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Log.d(TAG, "moveCamera: moving the camera to: latitude: " + latLng.latitude + ", longitude: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-        MarkerOptions options = new MarkerOptions()
-                .position(latLng)
-                .title(title);
-        mMap.addMarker(options);
+        if (!title.equals("My location")) {
+            MarkerOptions options = new MarkerOptions()
+                    .position(latLng)
+                    .title(title);
+            mMap.addMarker(options);
+        }
 
+        hideSoftKeyboard();
     }
 
     private void initMap() {
@@ -210,4 +229,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+    //hiding keybaord after user enters location
+    private void hideSoftKeyboard() {
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
