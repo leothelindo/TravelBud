@@ -3,6 +3,11 @@ package me.leojlindo.travelbud;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,10 +29,47 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
+
+    FragmentTransaction fragmentTransaction;
+
+    Fragment accountFragment = new AccountFragment();
+    Fragment homeFragment = new HomeFragment();
+    Fragment settingFragment = new SettingFragment();
+    Fragment messageFragment = new MessageFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // handle navigation selection
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_toolbar);
+
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        fragmentTransaction = fragmentManager.beginTransaction();
+
+                        switch (item.getItemId()) {
+                            case R.id.user:
+                                fragmentTransaction.replace(R.id.flContainer, accountFragment).commit();
+                                return true;
+                            case R.id.home:
+                                fragmentTransaction.replace(R.id.flContainer, homeFragment).commit();
+                                return true;
+                            case R.id.setting:
+                                fragmentTransaction.replace(R.id.flContainer, settingFragment).commit();
+                                return true;
+                            case R.id.message:
+                                fragmentTransaction.replace(R.id.flContainer, messageFragment).commit();
+                                return true;
+                        }
+
+                        return false;
+                    }
+                });
 
         //checking if services is ok
         if (isServicesOK()) {
