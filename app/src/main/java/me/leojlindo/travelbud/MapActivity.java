@@ -107,8 +107,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .enableAutoManage(this,this)
                 .build();
 
-        placeAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient,
-                LAT_LNG_BOUNDS, null);
+        placeAutocompleteAdapter = new PlaceAutocompleteAdapter(this,Places.getGeoDataClient(this, null), LAT_LNG_BOUNDS,null);
 
         searchInput.setAdapter(placeAutocompleteAdapter);
 

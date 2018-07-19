@@ -29,7 +29,6 @@ import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.data.DataBufferUtils;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
@@ -80,7 +79,7 @@ public class PlaceAutocompleteAdapter
      *
      * @see android.widget.ArrayAdapter#ArrayAdapter(android.content.Context, int)
      */
-    public PlaceAutocompleteAdapter(Context context, GoogleApiClient geoDataClient,
+    public PlaceAutocompleteAdapter(Context context, GeoDataClient geoDataClient,
                                     LatLngBounds bounds, AutocompleteFilter filter) {
         super(context, android.R.layout.simple_expandable_list_item_2, android.R.id.text1);
         mGeoDataClient = geoDataClient;
