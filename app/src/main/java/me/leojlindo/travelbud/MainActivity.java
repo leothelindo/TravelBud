@@ -29,41 +29,60 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
-
-    FragmentTransaction fragmentTransaction;
-
+    NavigationView navigationView;
     Fragment accountFragment = new AccountFragment();
     Fragment homeFragment = new HomeFragment();
     Fragment settingFragment = new SettingFragment();
     Fragment messageFragment = new MessageFragment();
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final FragmentManager fragmentManager = getSupportFragmentManager();
 
         // handle navigation selection
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_toolbar);
+        navigationView = (NavigationView) findViewById(R.id.navigation_toolbar);
+
+
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.flContainer,homeFragment).commit();
+
+
+
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        fragmentTransaction = fragmentManager.beginTransaction();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                         switch (item.getItemId()) {
                             case R.id.user:
                                 fragmentTransaction.replace(R.id.flContainer, accountFragment).commit();
+                                mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+                                mDrawerLayout.closeDrawers();
                                 return true;
                             case R.id.home:
                                 fragmentTransaction.replace(R.id.flContainer, homeFragment).commit();
+                                mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+                                mDrawerLayout.closeDrawers();
                                 return true;
                             case R.id.setting:
                                 fragmentTransaction.replace(R.id.flContainer, settingFragment).commit();
+                                mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+                                mDrawerLayout.closeDrawers();
                                 return true;
                             case R.id.message:
                                 fragmentTransaction.replace(R.id.flContainer, messageFragment).commit();
+                                mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+                                mDrawerLayout.closeDrawers();
                                 return true;
                         }
 
@@ -75,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
         if (isServicesOK()) {
             init();
         }
+
+
 
         // set the new nav bar to the action bar
         mToolbar = (Toolbar) findViewById(R.id.nav_bar);
@@ -128,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
