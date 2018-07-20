@@ -5,4 +5,14 @@
     <color name="colorAccent">#b485c6</color>
     <color name="lightBlue">#00bcc1</color>
     <color name="appOrange">#ef5722</color>
+
+
+    <color name="white_smoke">#F7F7F7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="main_color_gray_dk">#3b3b3b</color>
+    <color name="main_color_gray_lt">#acacac</color>
+    <color name="main_color_gray">#7d7d7d</color>
+    <color name="gray_light">#e8e8e8</color>
 </resources>
