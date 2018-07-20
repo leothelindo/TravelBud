@@ -36,6 +36,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -86,7 +87,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     //widgets
     private AutoCompleteTextView searchInput;
-    private ImageView mapGps;
+    private ImageView mapGps, mapInfo;
 
     private boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
@@ -94,6 +95,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private PlaceAutocompleteAdapter placeAutocompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
+    private Marker marker;
 
 
     @Override
@@ -102,6 +104,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         searchInput = (AutoCompleteTextView) findViewById(R.id.search_input);
         mapGps = findViewById(R.id.ic_gps);
+        mapInfo = findViewById(R.id.place_info);
 
         getLocationPermission();
     }
@@ -145,6 +148,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked gps icon");
                 getDeviceLocation();
+            }
+        });
+
+        mapInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: clicked place info");
+                try {
+                    if (marker.isInfoWindowShown()) {
+                        marker.hideInfoWindow();
+                    } else {
+                        marker.showInfoWindow();
+                    }
+                } catch (NullPointerException e) {
+                    Log.e(TAG, "onClick: NullPointerException: " + e.getMessage());
+                }
             }
         });
 
@@ -197,6 +216,33 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         } catch (SecurityException e) {
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
         }
+    }
+
+    private void moveCamera(LatLng latLng, float zoom, PlaceInfo placeInfo) {
+        Log.d(TAG, "moveCamera: moving the camera to: latitude: " + latLng.latitude + ", longitude: " + latLng.longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
+        //first clear all markers on map
+        mMap.clear();
+
+        //adding address and phone num to show up on marker
+        if (placeInfo != null) {
+            try {
+                String snippet = "Address: " + placeInfo.getAddress() + "\n" +
+                        "Phone Number: " + placeInfo.getPhoneNumber() + "\n";
+
+                MarkerOptions options = new MarkerOptions()
+                        .position(latLng)
+                        .title(placeInfo.getName())
+                        .snippet(snippet);
+                marker = mMap.addMarker(options);
+            } catch (NullPointerException e) {
+                Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage());
+            }
+        } else {
+            mMap.addMarker(new MarkerOptions().position(latLng));
+        }
+        hideSoftKeyboard();
     }
 
     //redirecting camera of the location you want to show
@@ -323,7 +369,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             }
 
-            moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace.getName());
+            moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace);
 
             places.release();
 
