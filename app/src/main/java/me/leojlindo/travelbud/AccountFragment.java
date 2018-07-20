@@ -18,6 +18,7 @@ public class AccountFragment extends Fragment {
     TextView firstname_tv;
     TextView lastname_tv;
     TextView phone_tv;
+    TextView bio_tv;
 
     //onCreateView method is called when Fragment should create its View object hierarchy,
     @Override
@@ -37,6 +38,8 @@ public class AccountFragment extends Fragment {
         lastname_tv.setText(ParseUser.getCurrentUser().get("lastName").toString());
         phone_tv = (TextView) view.findViewById(R.id.phone_tv);
         phone_tv.setText(ParseUser.getCurrentUser().get("phoneNum").toString());
+        bio_tv = (TextView) view.findViewById(R.id.bioBody_tv);
+        //bio_tv.setText(ParseUser.getCurrentUser().get("bio").toString());
 
 
         signOut_btn = (Button) view.findViewById(R.id.signOut_btn);

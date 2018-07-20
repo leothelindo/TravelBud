@@ -25,11 +25,14 @@ public class Biography extends AppCompatActivity {
         bio_et = (EditText) findViewById(R.id.bio_et);
 
         submit=(Button)findViewById(R.id.bioSubmit_btn);
+        final ParseUser user = ParseUser.getCurrentUser();
+
 
         submit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                ParseUser.getCurrentUser().put("bio", bio_et.getText().toString());
+
+                user.put("bio", bio_et.getText().toString());
                 final Intent intent = new Intent(Biography.this, MainActivity.class);
                 startActivity(intent);
                 finish();

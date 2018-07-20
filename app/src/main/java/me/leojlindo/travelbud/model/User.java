@@ -12,6 +12,7 @@ public class User extends ParseObject{
     private static final String KEY_FIRST = "firstName";
     private static final String KEY_LAST = "lastName";
     private static final String KEY_PHONE = "phoneNum";
+    private static final String KEY_BIO = "bio";
 
 
     public String getDescription(){
@@ -36,6 +37,12 @@ public class User extends ParseObject{
 
     public void setUser(ParseUser user) {
         put(KEY_USER, user);
+    }
+    public void setBio(String bio){
+        put(KEY_BIO, bio);
+    }
+    public String getBio(){
+        return getString(KEY_BIO);
     }
 
     public String getFirstName() { return getString(KEY_FIRST);}
