@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class Biography extends AppCompatActivity {
 
@@ -33,9 +35,15 @@ public class Biography extends AppCompatActivity {
             public void onClick(View view){
 
                 user.put("bio", bio_et.getText().toString());
-                final Intent intent = new Intent(Biography.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                user.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        final Intent intent = new Intent(Biography.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
             }
         });
 

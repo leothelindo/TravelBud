@@ -39,7 +39,7 @@ public class AccountFragment extends Fragment {
         phone_tv = (TextView) view.findViewById(R.id.phone_tv);
         phone_tv.setText(ParseUser.getCurrentUser().get("phoneNum").toString());
         bio_tv = (TextView) view.findViewById(R.id.bioBody_tv);
-        //bio_tv.setText(ParseUser.getCurrentUser().get("bio").toString());
+        bio_tv.setText(ParseUser.getCurrentUser().get("bio").toString());
 
 
         signOut_btn = (Button) view.findViewById(R.id.signOut_btn);
