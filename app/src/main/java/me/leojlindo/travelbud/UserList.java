@@ -13,9 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import me.leojlindo.travelbud.custom.CustomActivity;
-import me.leojlindo.travelbud.model.ChatUser;
-import me.leojlindo.travelbud.utils.Const;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import me.leojlindo.travelbud.custom.CustomActivity;
+import me.leojlindo.travelbud.model.ChatUser;
+import me.leojlindo.travelbud.utils.Const;
 
 
 /**
@@ -126,7 +127,7 @@ public class UserList extends CustomActivity
                                             View arg1, int pos, long arg3)
                     {
                         startActivity(new Intent(UserList.this,
-                                Chat.class).putExtra(
+                                MessageFragment.class).putExtra(
                                 Const.EXTRA_DATA,  uList.get(pos)));
                     }
                 });

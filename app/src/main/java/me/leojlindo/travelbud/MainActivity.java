@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
+import me.leojlindo.travelbud.custom.CustomActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
