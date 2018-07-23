@@ -51,7 +51,7 @@ public class UserList extends CustomActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_list);
+        setContentView(R.layout.fragment_message);
         // Get reference to the Firebase database
         database  = FirebaseDatabase.getInstance().getReference();
 
