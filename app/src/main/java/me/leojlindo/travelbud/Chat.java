@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.text.format.DateUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,7 @@ import java.util.List;
 
 import me.leojlindo.travelbud.custom.CustomActivity;
 import me.leojlindo.travelbud.model.Conversation;
+import me.leojlindo.travelbud.utils.Const;
 
 
 /**
@@ -83,10 +85,10 @@ public class Chat extends CustomActivity
         list.setStackFromBottom(true);
 
         txt = (EditText) findViewById(R.id.txt);
-        //txt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        txt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 
-        //custom.setTouchNClick(R.id.btnSend);
-        // buddy = getActivity().getIntent().getStringExtra(Const.EXTRA_DATA);
+        setTouchNClick(R.id.btnSend);
+        buddy = getIntent().getStringExtra(Const.EXTRA_DATA);
 
         handler = new Handler();
 
@@ -118,7 +120,7 @@ public class Chat extends CustomActivity
      */
     @Override
     public void onClick(View v) {
-        onClick(v);
+
         if (v.getId() == R.id.btnSend) {
             sendMessage();
         }
@@ -175,7 +177,7 @@ public class Chat extends CustomActivity
         if (convList.size() == 0) {
             //loads all the messages
             ArrayList<String> al = new ArrayList<String>();
-            //al.add(buddy);
+            al.add(buddy);
             //ParseUser parseUser = UserList.user;
             //String userName = parseUser.getUsername();
 
