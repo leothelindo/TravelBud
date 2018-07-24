@@ -1,7 +1,6 @@
 package me.leojlindo.travelbud;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -14,8 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextView firstname_tv;
     TextView lastname_tv;
-
-
-
 
 
     @Override
@@ -118,14 +112,14 @@ public class MainActivity extends AppCompatActivity {
 
     //then user can get to map
     public void init() {
-        Button map_btn = findViewById(R.id.map_btn);
+       /* Button map_btn = findViewById(R.id.map_btn);
         map_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     //checking the version

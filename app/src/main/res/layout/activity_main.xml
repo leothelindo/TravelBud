@@ -21,15 +21,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center|bottom">
+        android:gravity="center|top">
 
         <include
             layout="@layout/navigation_action"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
 
 
-        <Button
+        <!--<Button
             android:id="@+id/map_btn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -39,7 +41,7 @@
             android:layout_marginBottom="41dp"
             android:layout_marginEnd="36dp"
             android:layout_weight="1"
-            android:text="Map" />
+            android:text="Map" /> -->
 
 
     </RelativeLayout>
