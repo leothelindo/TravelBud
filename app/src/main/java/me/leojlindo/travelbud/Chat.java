@@ -178,14 +178,6 @@ public class Chat extends CustomActivity
             //loads all the messages
             ArrayList<String> al = new ArrayList<String>();
             al.add(buddy);
-            //ParseUser parseUser = UserList.user;
-            //String userName = parseUser.getUsername();
-
-            /*for (int i = 0; i < MessageFragment.uList.size()-1 ; i++) {
-                al.add(MessageFragment.uList.get(i).getUsername());
-            }*/
-
-
             al.add(MessageFragment.user.getUsername());
             q.whereContainedIn("sender", al);
             q.whereContainedIn("receiver", al);
@@ -196,7 +188,7 @@ public class Chat extends CustomActivity
             q.whereEqualTo("sender", buddy);
             q.whereEqualTo("receiver", MessageFragment.user.getUsername());
         }
-        q.orderByAscending("createdAt");
+        q.orderByDescending("createdAt");
         q.setLimit(30);
         q.findInBackground(new FindCallback<ParseObject>() {
             @Override
