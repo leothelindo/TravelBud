@@ -21,7 +21,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import com.parse.Parse;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,15 +42,26 @@ public class MainActivity extends AppCompatActivity {
     TextView firstname_tv;
     TextView lastname_tv;
 
+    /** The Firebase database */
+    private FirebaseDatabase database;
+
+    /** Firebase Authentication component */
+    private FirebaseAuth firebaseAuth;
+
 
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId("ticketAway")
+                .clientKey("ticketMaster")
+                .server("http://ticketaway.herokuapp.com/parse")
+                .build());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseApp.initializeApp(this);
 
 
         // handle navigation selection

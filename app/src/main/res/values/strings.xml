@@ -10,6 +10,7 @@
     <string name="failed_text">Failed</string>
     <string name="delivered_text">Delivered</string>
     <string name="sending_text">Sending...</string>
+    <string name="err_users">Error occurred while finding users:</string>
 
 
 </resources>
