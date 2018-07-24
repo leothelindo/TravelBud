@@ -1,10 +1,8 @@
 package me.leojlindo.travelbud.model;
 
-import me.leojlindo.travelbud.UserList;
-
-
-
 import java.util.Date;
+
+import me.leojlindo.travelbud.MessageFragment;
 
 /**
  * The Class Conversation is a Java Bean class that represents a single chat
@@ -34,11 +32,6 @@ public class Conversation
     /** The sender. */
     private String sender;
 
-    /** The receiver */
-    private String receiver;
-
-    /** The photo url. */
-    private String photoUrl;
 
     /**
      * Instantiates a new conversation.
@@ -49,17 +42,11 @@ public class Conversation
      *            the date
      * @param sender
      *            the sender
-     * @param receiver
-     *            the receiver
-     * @param photoUrl
-     *            the photo url
      */
-    public Conversation(String msg, Date date, String sender, String receiver, String photoUrl) {
+    public Conversation(String msg, Date date, String sender) {
         this.msg = msg;
         this.date = date;
         this.sender = sender;
-        this.receiver = receiver;
-        this.photoUrl = photoUrl;
     }
 
     /**
@@ -90,7 +77,7 @@ public class Conversation
      */
     public boolean isSent()
     {
-        return UserList.user.getId().contentEquals(sender);
+        return MessageFragment.user.getUsername().equals(sender);
     }
 
     /**
@@ -112,27 +99,6 @@ public class Conversation
     public void setDate(Date date)
     {
         this.date = date;
-    }
-
-    /**
-     * Gets the sender.
-     *
-     * @return the sender
-     */
-    public String getReceiver()
-    {
-        return receiver;
-    }
-
-    /**
-     * Sets the sender.
-     *
-     * @param receiver
-     *            the new sender
-     */
-    public void setReceiver(String receiver)
-    {
-        this.receiver = receiver;
     }
 
     /**
@@ -176,20 +142,6 @@ public class Conversation
     {
         this.status = status;
     }
-
-    /**
-     * Set the photo URL
-     *
-     * @param photoUrl
-     */
-    public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
-
-    /**
-     * Get the photo URL
-     *
-     * @return photoUrl
-     */
-    public String getPhotoUrl() { return this.photoUrl; }
 
 
 }
