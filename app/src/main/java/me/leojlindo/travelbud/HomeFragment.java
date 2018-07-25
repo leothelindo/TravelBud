@@ -542,6 +542,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
     }
 
+    // Leo's high key a genius - Mackenzie Kirkham
+    @Override
+    public void onPause() {
+        super.onPause();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
+    }
+
 
 }
 
