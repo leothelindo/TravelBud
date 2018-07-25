@@ -104,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         //checking if services is ok
-        if (isServicesOK()) {
-            init();
-        }
+        //if (isServicesOK()) {
+         //   init();
+        //}
 
 
 
@@ -123,17 +123,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    //then user can get to map
-    public void init() {
-       /* Button map_btn = findViewById(R.id.map_btn);
-        map_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });*/
-    }
 
     //checking the version
     public boolean isServicesOK() {
