@@ -1,9 +1,11 @@
 package me.leojlindo.travelbud;
 
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +20,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,13 +42,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import me.leojlindo.travelbud.Route.MapHttpConnection;
+import me.leojlindo.travelbud.Route.PathJSONParser;
 import me.leojlindo.travelbud.models.PlaceInfo;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
@@ -57,9 +66,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         endLocation = view.findViewById(R.id.end_location);
         mapGps = view.findViewById(R.id.ic_gps);
         mapInfo = view.findViewById(R.id.place_info);
+        goBtn = view.findViewById(R.id.go_btn);
 
         getLocationPermission();
+
+        goBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                getPath();
+            }
+        });
         return view;
+
     }
 
     // This is triggered soon after onCreateView()
@@ -83,8 +103,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-            //if permission is granted then initialize everything
-            //init();
         }
     }
 
@@ -105,6 +123,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private AutoCompleteTextView startLocation;
     private AutoCompleteTextView endLocation;
     private ImageView mapGps, mapInfo;
+    private Button goBtn;
 
     private boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
@@ -113,6 +132,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
     private Marker marker;
+    private LatLng latlngOne;
+    private LatLng latlngTwo;
+    private boolean isStart = true;
 
 
     private void init() {
@@ -391,12 +413,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                 mPlace = new PlaceInfo();
                 mPlace.setName(place.getName().toString());
                 mPlace.setAddress(place.getAddress().toString());
-                mPlace.setAttributions(place.getAttributions().toString());
+                //mPlace.setAttributions(place.getAttributions().toString());
                 mPlace.setId(place.getId());
                 mPlace.setLatlng(place.getLatLng());
-                mPlace.setRating(place.getRating());
-                mPlace.setPhoneNumber(place.getPhoneNumber().toString());
-                mPlace.setWebsiteUri(place.getWebsiteUri());
 
                 Log.d(TAG, "onResult: place: " + mPlace.toString());
             } catch (NullPointerException e) {
@@ -406,10 +425,122 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
             moveCamera(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude), 15f, mPlace);
 
+            if (isStart) {
+                latlngOne = new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude);
+                isStart = false;
+            } else {
+                latlngTwo = new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude);
+            }
+
             places.release();
 
         }
     };
+;
+    //getting direction route of the start location and the end location
+    private String  getMapsApiDirectionsUrl(LatLng origin,LatLng dest) {
+        // Origin of route
+        String str_origin = "origin="+origin.latitude+","+origin.longitude;
+
+        // Destination of route
+        String str_dest = "destination="+dest.latitude+","+dest.longitude;
+
+        // Sensor enabled
+        String sensor = "sensor=false";
+
+        // Building the parameters to the web service
+        String parameters = str_origin+"&"+str_dest+"&"+sensor;
+
+        // Output format
+        String output = "json";
+
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters;
+
+        return url;
+    }
+
+    private class ReadTask extends AsyncTask<String, Void , String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+            // TODO Auto-generated method stub
+            String data = "";
+            try {
+                MapHttpConnection http = new MapHttpConnection();
+                data = http.readUr(url[0]);
+
+
+            } catch (Exception e) {
+                // TODO: handle exception
+                Log.d("Background Task", e.toString());
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            new ParserTask().execute(result);
+        }
+
+    }
+
+    private class ParserTask extends AsyncTask<String,Integer, List<List<HashMap<String , String >>>> {
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(
+                String... jsonData) {
+            // TODO Auto-generated method stub
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+            try {
+                jObject = new JSONObject(jsonData[0]);
+                PathJSONParser parser = new PathJSONParser();
+                routes = parser.parse(jObject);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> routes) {
+            ArrayList<LatLng> points = null;
+            PolylineOptions polyLineOptions = null;
+
+            // traversing through routes
+            for (int i = 0; i < routes.size(); i++) {
+                points = new ArrayList<LatLng>();
+                polyLineOptions = new PolylineOptions();
+                List<HashMap<String, String>> path = routes.get(i);
+
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
+
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat, lng);
+
+                    points.add(position);
+                }
+
+                polyLineOptions.addAll(points);
+                polyLineOptions.width(4);
+                polyLineOptions.color(Color.BLUE);
+            }
+
+            mMap.addPolyline(polyLineOptions);
+
+        }}
+
+    public void getPath() {
+            String url = getMapsApiDirectionsUrl(latlngOne, latlngTwo);
+            ReadTask downloadTask = new ReadTask();
+            // Start downloading json data from Google Directions API
+            downloadTask.execute(url);
+
+    }
 
 
 }
