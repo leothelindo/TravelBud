@@ -1,6 +1,8 @@
 package me.leojlindo.travelbud;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +24,11 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.parse.GetDataCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView firstname_tv;
     TextView lastname_tv;
+    ImageView prof_iv;
 
     /** The Firebase database */
     private FirebaseDatabase database;
@@ -108,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
          //   init();
         //}
 
-
-
         // set the new nav bar to the action bar
         mToolbar = (Toolbar) findViewById(R.id.nav_bar);
         setSupportActionBar(mToolbar);
@@ -121,6 +128,23 @@ public class MainActivity extends AppCompatActivity {
         mToggle.syncState();
         // gives us the toolbar and the back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        View headerView = navigationView.getHeaderView(0);
+
+        firstname_tv = (TextView) findViewById(R.id.user_tv);
+        firstname_tv.setText(ParseUser.getCurrentUser().get("firstName").toString());
+        lastname_tv = (TextView) findViewById(R.id.lastname_tv);
+        lastname_tv.setText(ParseUser.getCurrentUser().get("lastName").toString());
+
+        prof_iv = (ImageView) findViewById(R.id.profilepic_iv);
+        ParseFile imageFile = (ParseFile) ParseUser.getCurrentUser().get("picture");
+        imageFile.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                prof_iv.setImageBitmap(bitmap);
+            }
+        });
     }
 
 

@@ -93,12 +93,13 @@ public class MessageFragment extends Fragment{
      * Load list of users.
      */
     private void loadUserList() {
+
         final ProgressDialog dia = ProgressDialog.show(getContext(), null,
                 getString(R.string.alert_loading));
 
-
-        ParseUser.getQuery().whereNotEqualTo("username", user.getUsername())
+        ParseUser.getQuery().whereNotEqualTo("viewable", false)
                 .findInBackground(new FindCallback<ParseUser>() {
+
                     @Override
                     public void done(List<ParseUser> li, ParseException e) {
                         dia.dismiss();
@@ -125,6 +126,7 @@ public class MessageFragment extends Fragment{
                         }
                     }
                 });
+
     }
 
 

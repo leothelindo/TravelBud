@@ -1,15 +1,21 @@
 package me.leojlindo.travelbud;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 public class AccountFragment extends Fragment {
@@ -19,6 +25,8 @@ public class AccountFragment extends Fragment {
     TextView lastname_tv;
     TextView phone_tv;
     TextView bio_tv;
+    ImageView prof_iv;
+
 
     //onCreateView method is called when Fragment should create its View object hierarchy,
     @Override
@@ -40,6 +48,16 @@ public class AccountFragment extends Fragment {
         phone_tv.setText(ParseUser.getCurrentUser().get("phoneNum").toString());
         bio_tv = (TextView) view.findViewById(R.id.bioBody_tv);
         bio_tv.setText(ParseUser.getCurrentUser().get("bio").toString());
+        prof_iv = (ImageView) view.findViewById(R.id.imageView3);
+        ParseFile imageFile = (ParseFile) ParseUser.getCurrentUser().get("picture");
+        imageFile.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                prof_iv.setImageBitmap(bitmap);
+            }
+        });
+
 
 
         signOut_btn = (Button) view.findViewById(R.id.signOut_btn);
