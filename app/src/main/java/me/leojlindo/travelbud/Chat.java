@@ -5,6 +5,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.format.DateUtils;
 import android.view.MenuItem;
@@ -68,14 +72,24 @@ public class Chat extends CustomActivity
 
     private boolean isRunning;
 
+    TextView title;
+
+
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private Toolbar mToolbar;
+    NavigationView navigationView;
+
+
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
      */
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat);
-
 
         convList = new ArrayList<Conversation>();
         ListView list = (ListView) findViewById(R.id.list);
@@ -89,6 +103,13 @@ public class Chat extends CustomActivity
 
         setTouchNClick(R.id.btnSend);
         buddy = getIntent().getStringExtra(Const.EXTRA_DATA);
+
+        title = (TextView) findViewById(R.id.buddy_tv);
+        title.setText(buddy);
+
+
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         handler = new Handler();
 
