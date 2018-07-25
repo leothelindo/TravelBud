@@ -121,12 +121,12 @@ public class MainActivity extends AppCompatActivity {
 
         View headerView = navigationView.getHeaderView(0);
 
-        firstname_tv = (TextView) findViewById(R.id.user_tv);
+        firstname_tv = (TextView) headerView.findViewById(R.id.user_tv);
         firstname_tv.setText(ParseUser.getCurrentUser().get("firstName").toString());
-        lastname_tv = (TextView) findViewById(R.id.lastname_tv);
+        lastname_tv = (TextView) headerView.findViewById(R.id.lastname_tv);
         lastname_tv.setText(ParseUser.getCurrentUser().get("lastName").toString());
 
-        prof_iv = (ImageView) findViewById(R.id.profilepic_iv);
+        prof_iv = (ImageView) headerView.findViewById(R.id.profilepic_iv);
         ParseFile imageFile = (ParseFile) ParseUser.getCurrentUser().get("picture");
         imageFile.getDataInBackground(new GetDataCallback() {
             @Override
