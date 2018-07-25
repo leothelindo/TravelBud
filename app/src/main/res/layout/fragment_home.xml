@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
         tools:context=".MapsActivity" />
 
     <RelativeLayout
@@ -36,14 +35,45 @@
             android:src="@drawable/ic_magnify" />
 
         <AutoCompleteTextView
-            android:id="@+id/search_input"
+            android:id="@+id/start_location"
             android:layout_width="347dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="37dp"
             android:background="@null"
-            android:hint="Enter Address, City or Zip Code"
+            android:hint="Enter Start Location"
+            android:imeOptions="actionSearch"
+            android:textColor="#000"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relLayout1"
+        android:background="@drawable/white_border"
+        android:elevation="10dp">
+
+        <ImageView
+            android:id="@+id/ic_magnify2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/ic_magnify" />
+
+        <AutoCompleteTextView
+            android:id="@+id/end_location"
+            android:layout_width="347dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            android:hint="Enter End Location"
             android:imeOptions="actionSearch"
             android:textColor="#000"
             android:textSize="15sp" />
@@ -55,8 +85,7 @@
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="111dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_gps" />
 
@@ -66,9 +95,9 @@
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/ic_gps"
-        android:layout_marginStart="12dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_info" />
+
 
 
 

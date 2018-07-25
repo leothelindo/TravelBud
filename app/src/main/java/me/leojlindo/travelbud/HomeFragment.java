@@ -50,10 +50,11 @@ import me.leojlindo.travelbud.models.PlaceInfo;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
-    //onCreateView method is called when Fragment should create its View object hierarchy,
+    //onCreateView method is called when Fragment should create its View object hierarchy
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, parent, false);
-        searchInput = view.findViewById(R.id.search_input);
+        startLocation = view.findViewById(R.id.start_location);
+        endLocation = view.findViewById(R.id.end_location);
         mapGps = view.findViewById(R.id.ic_gps);
         mapInfo = view.findViewById(R.id.place_info);
 
@@ -61,11 +62,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         return view;
     }
 
-    // This is triggered soon after onCreateView().
+    // This is triggered soon after onCreateView()
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
         init();
-
     }
 
     public void onMapReady(GoogleMap googleMap) {
@@ -103,7 +102,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
 
     //widgets
-    private AutoCompleteTextView searchInput;
+    private AutoCompleteTextView startLocation;
+    private AutoCompleteTextView endLocation;
     private ImageView mapGps, mapInfo;
 
     private boolean mLocationPermissionsGranted = false;
@@ -125,15 +125,33 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                 .enableAutoManage(getActivity(),this)
                 .build();
 
-        searchInput.setOnItemClickListener(autocompleteClickListener);
+        startLocation.setOnItemClickListener(autocompleteClickListener);
+        endLocation.setOnItemClickListener(autocompleteClickListener);
 
         //passing google client to adapter to get search suggestions
         placeAutocompleteAdapter = new PlaceAutocompleteAdapter(getActivity(), Places.getGeoDataClient(getActivity(), null), LAT_LNG_BOUNDS,null);
 
-        searchInput.setAdapter(placeAutocompleteAdapter);
+        startLocation.setAdapter(placeAutocompleteAdapter);
+        endLocation.setAdapter(placeAutocompleteAdapter);
 
         //letting user hit 'enter' to enter location
-        searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        startLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+
+                    //execute method for searching location
+                    geoLocate();
+                }
+                return false;
+            }
+        });
+
+        //end location input
+        endLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
@@ -179,11 +197,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     //geolocating the string the user entered into search
     private void geoLocate() {
         Log.d(TAG, "geoLocate: geolocating");
-        String searchString = searchInput.getText().toString();
+        String startString = startLocation.getText().toString();
+        String endString = endLocation.getText().toString();
         Geocoder geocoder = new Geocoder(getContext());
         List<Address> list = new ArrayList<>();
         try {
-            list = geocoder.getFromLocationName(searchString, 1);
+            list = geocoder.getFromLocationName(startString, 1);
+            list = geocoder.getFromLocationName(endString, 1);
         } catch (IOException e) {
             Log.e(TAG, "geoLocate: IOException" + e.getMessage());
         }
