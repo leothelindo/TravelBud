@@ -1,6 +1,5 @@
 package me.leojlindo.travelbud;
 
-import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,15 +12,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.parse.GetDataCallback;
@@ -112,11 +107,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        //checking if services is ok
-        //if (isServicesOK()) {
-         //   init();
-        //}
-
         // set the new nav bar to the action bar
         mToolbar = (Toolbar) findViewById(R.id.nav_bar);
         setSupportActionBar(mToolbar);
@@ -148,26 +138,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //checking the version
-    public boolean isServicesOK() {
-        Log.d(TAG, "isServicesOK: checking google services version");
-
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this );
-
-        if (available == ConnectionResult.SUCCESS) {
-            //all good, user can make map request
-            Log.d(TAG, "isServicesOK: Google Play Services is working");
-            return true;
-        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            //error occurred but can be fixed
-            Log.d(TAG, "isServicesOK: error occurred but can be fixed");
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(this, available, ERROR_DIALOG_REQUEST);
-            dialog.show();
-        } else {
-            Toast.makeText(this, "You cant make map request", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }
 
     // if we select mToggle return true. Allows us to click the nav bar
     @Override
