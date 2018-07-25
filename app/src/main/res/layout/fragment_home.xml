@@ -98,7 +98,14 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_info" />
 
-
+    <Button
+        android:id="@+id/go_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ic_gps"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        android:text="Go" />
 
 
 </RelativeLayout>
