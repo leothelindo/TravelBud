@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,9 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.leojlindo.travelbud.utils.Const;
+import me.leojlindo.travelbud.utils.TouchEffect;
 import me.leojlindo.travelbud.utils.Utils;
 
-public class UserList extends AppCompatActivity {
+public class UserList extends AppCompatActivity implements View.OnClickListener{
 
     /** The Chat list. All other users besides the current logged in user */
     public static ArrayList<ParseUser> uList;
@@ -58,13 +60,13 @@ public class UserList extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
 
                             uList = new ArrayList<ParseUser>(li);
-                            ListView list = (ListView) findViewById(R.id.list);
+                            ListView list = (ListView) findViewById(R.id.user_list);
                             list.setAdapter(new UserList.UserAdapter());
                             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                     startActivity(new Intent(context,
-                                            UserList.class).putExtra(Const.EXTRA_DATA, uList.get(i).getUsername()));
+                                            UserProfile.class).putExtra(Const.EXTRA_DATA, uList.get(i).getUsername()));
                                 }
                             });
                         } else {
@@ -77,6 +79,45 @@ public class UserList extends AppCompatActivity {
                 });
 
     }
+
+
+
+    public final TouchEffect TOUCH = new TouchEffect();
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
+    @Override
+    public void setContentView(int layoutResID)
+    {
+        super.setContentView(layoutResID);
+    }
+
+    /**
+     * Sets the click listener for a view with given id.
+     *
+     * @param id
+     *            the id
+     * @return the view on which listener is applied
+     */
+    public View setClick(int id)
+    {
+
+        View v = findViewById(id);
+        if (v != null)
+            v.setOnClickListener(this);
+        return v;
+    }
+
+    /* (non-Javadoc)
+     * @see android.view.View.OnClickListener#onClick(android.view.View)
+     */
+    @Override
+    public void onClick(View v)
+    {
+
+    }
+
 
     private class UserAdapter extends BaseAdapter
     {
@@ -120,7 +161,7 @@ public class UserList extends AppCompatActivity {
                 v = getLayoutInflater().inflate(R.layout.users, null);
 
             ParseUser c = getItem(pos);
-            TextView lbl = (TextView) v;
+            TextView lbl = (TextView) v.findViewById(R.id.big_tv);
             lbl.setText(c.getUsername());
             lbl.setCompoundDrawablesWithIntrinsicBounds(
                     c.getBoolean("online") ? R.drawable.ic_online
@@ -128,6 +169,14 @@ public class UserList extends AppCompatActivity {
 
             return v;
         }
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 
