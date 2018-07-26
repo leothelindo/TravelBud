@@ -46,6 +46,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import org.json.JSONObject;
 
@@ -433,13 +436,28 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                 isStart = false;
             } else {
                 latlngTwo = new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude);
+                saveRoute(latlngOne, latlngTwo);
             }
 
             places.release();
 
         }
     };
-;
+
+    public void saveRoute(LatLng start, LatLng end) {
+        ParseObject po = new ParseObject("Routes");
+        po.put("username", MessageFragment.user.getUsername());
+        po.put("start_location", latlngOne.toString());
+        po.put("end_location", latlngTwo.toString());
+        po.saveEventually(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+
+            }
+        });
+    }
+
+
     //getting direction route of the start location and the end location
     private String  getMapsApiDirectionsUrl(LatLng origin,LatLng dest) {
         // Origin of route
