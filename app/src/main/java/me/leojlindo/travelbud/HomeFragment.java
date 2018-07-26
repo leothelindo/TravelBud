@@ -545,7 +545,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
     }
 
-    // Leo's high key a genius - Mackenzie Kirkham
+    //wont crash when going to home fragment a second time
     @Override
     public void onPause() {
         super.onPause();
