@@ -1,5 +1,6 @@
 package me.leojlindo.travelbud;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -59,57 +60,6 @@ import me.leojlindo.travelbud.models.PlaceInfo;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
-    //onCreateView method is called when Fragment should create its View object hierarchy
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, parent, false);
-        startLocation = view.findViewById(R.id.start_location);
-        endLocation = view.findViewById(R.id.end_location);
-        mapGps = view.findViewById(R.id.ic_gps);
-        mapInfo = view.findViewById(R.id.place_info);
-        goBtn = view.findViewById(R.id.go_btn);
-
-        getLocationPermission();
-
-        goBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                getPath();
-            }
-        });
-        return view;
-
-    }
-
-    // This is triggered soon after onCreateView()
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        init();
-    }
-
-    public void onMapReady(GoogleMap googleMap) {
-        Log.d(TAG, "onMapReady: map is ready");
-        mMap = googleMap;
-
-        if (mLocationPermissionsGranted) {
-            getDeviceLocation();
-
-            if (ActivityCompat.checkSelfPermission(getContext(),
-                    android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                return;
-            }
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
-        }
-    }
-
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
     private static final String TAG = "HomeFragment";
 
     private static final String FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -118,13 +68,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
 
-
     //widgets
     private AutoCompleteTextView startLocation;
     private AutoCompleteTextView endLocation;
     private ImageView mapGps, mapInfo;
     private Button goBtn;
 
+    //variables
     private boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -136,6 +86,86 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private LatLng latlngTwo;
     private boolean isStart = true;
 
+    //onCreateView method is called when Fragment should create its View object hierarchy
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, parent, false);
+        startLocation = view.findViewById(R.id.start_location);
+        endLocation = view.findViewById(R.id.end_location);
+        mapGps = view.findViewById(R.id.ic_gps);
+        mapInfo = view.findViewById(R.id.place_info);
+        goBtn = view.findViewById(R.id.go_btn);
+
+        getLocationPermission();
+
+        //when go button is clicked it draws the route
+        goBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                getPath();
+                startActivity(new Intent(getActivity(), PopUp.class));
+            }
+        });
+        return view;
+
+    }
+
+    // This is triggered soon after onCreateView()
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        //initializing everything after getting permission
+        init();
+    }
+
+    //checking permissions
+    private void getLocationPermission() {
+        Log.d(TAG, "getLocationPermission: getting getting location permission");
+        String[] permissions = {android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        boolean permissionGranted = ActivityCompat.checkSelfPermission(getContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean secondPermissionGranted = ActivityCompat.checkSelfPermission(getContext(), COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+        //if passes both permissions then we can access users location else ask for it
+        if (permissionGranted){
+            if (secondPermissionGranted) {
+                mLocationPermissionsGranted = true;
+                initMap();
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), permissions, LOCATION_PERMISSION_CODE);
+            }
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), permissions, LOCATION_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        mLocationPermissionsGranted = false;
+
+        switch(requestCode) {
+            case LOCATION_PERMISSION_CODE: {
+                //some location permission was granted
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < grantResults.length; i ++) {
+                        //if one result doesnt have access then its denied
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                            mLocationPermissionsGranted = false;
+                            return;
+                        }
+                    }
+                    mLocationPermissionsGranted = true;
+                    //initialize map
+                    initMap();
+                }
+            }
+
+        }
+    }
+
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 
     private void init() {
         Log.d(TAG, "init: initializing");
@@ -216,28 +246,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         hideSoftKeyboard();
     }
 
-    //geolocating the string the user entered into search
-    private void geoLocate() {
-        Log.d(TAG, "geoLocate: geolocating");
-        String startString = startLocation.getText().toString();
-        String endString = endLocation.getText().toString();
-        Geocoder geocoder = new Geocoder(getContext());
-        List<Address> list = new ArrayList<>();
-        try {
-            list = geocoder.getFromLocationName(startString, 1);
-            list = geocoder.getFromLocationName(endString, 1);
-        } catch (IOException e) {
-            Log.e(TAG, "geoLocate: IOException" + e.getMessage());
-        }
-
-        if (list.size() > 0) {
-            Address address = list.get(0);
-            Log.d(TAG, "geoLocate: found a location: " + address.toString());
-
-            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), 15f, address.getAddressLine(0));
-        }
-    }
-
     private void getDeviceLocation() {
         Log.d(TAG,"getDeviceLocation: getting current location");
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -262,6 +270,65 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             }
         } catch (SecurityException e) {
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
+        }
+    }
+
+    //called when map is ready to be used
+    public void onMapReady(GoogleMap googleMap) {
+        Log.d(TAG, "onMapReady: map is ready");
+        mMap = googleMap;
+
+        if (mLocationPermissionsGranted) {
+            getDeviceLocation();
+
+            if (ActivityCompat.checkSelfPermission(getContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                return;
+            }
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+        }
+    }
+
+    private void initMap() {
+        Log.d(TAG, "initMap: initializing map");
+
+        FragmentManager cfm = getChildFragmentManager();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+
+        if (mapFragment == null) {
+            mapFragment = SupportMapFragment.newInstance();
+            cfm.beginTransaction().replace(R.id.map, mapFragment).commit();
+        }
+
+        mapFragment.getMapAsync(this);
+
+    }
+
+
+    //geolocating the string the user entered into search
+    private void geoLocate() {
+        Log.d(TAG, "geoLocate: geolocating");
+        String startString = startLocation.getText().toString();
+        String endString = endLocation.getText().toString();
+        Geocoder geocoder = new Geocoder(getContext());
+        List<Address> list = new ArrayList<>();
+        try {
+            list = geocoder.getFromLocationName(startString, 1);
+            list = geocoder.getFromLocationName(endString, 1);
+        } catch (IOException e) {
+            Log.e(TAG, "geoLocate: IOException" + e.getMessage());
+        }
+
+        if (list.size() > 0) {
+            Address address = list.get(0);
+            Log.d(TAG, "geoLocate: found a location: " + address.toString());
+
+            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), 15f, address.getAddressLine(0));
         }
     }
 
@@ -305,70 +372,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         }
 
         hideSoftKeyboard();
-    }
-
-    private void initMap() {
-        Log.d(TAG, "initMap: initializing map");
-
-        FragmentManager cfm = getChildFragmentManager();
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-
-        if (mapFragment == null) {
-            mapFragment = SupportMapFragment.newInstance();
-            cfm.beginTransaction().replace(R.id.map, mapFragment).commit();
-        }
-
-        mapFragment.getMapAsync(this);
-
-    }
-
-    //checking permissions
-    private void getLocationPermission() {
-        Log.d(TAG, "getLocationPermission: getting getting location permission");
-        String[] permissions = {android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION};
-
-        boolean permissionGranted = ActivityCompat.checkSelfPermission(getContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-        boolean secondPermissionGranted = ActivityCompat.checkSelfPermission(getContext(), COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-
-        if (permissionGranted){
-
-            if (secondPermissionGranted) {
-                mLocationPermissionsGranted = true;
-                initMap();
-            } else {
-                ActivityCompat.requestPermissions(getActivity(), permissions, LOCATION_PERMISSION_CODE);
-
-            }
-        } else {
-            ActivityCompat.requestPermissions(getActivity(), permissions, LOCATION_PERMISSION_CODE);
-
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mLocationPermissionsGranted = false;
-
-        switch(requestCode) {
-            case LOCATION_PERMISSION_CODE: {
-                //some location permission was granted
-                if (grantResults.length > 0) {
-                    for (int i = 0; i < grantResults.length; i ++) {
-                        //if one result doesnt have access then its denied
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                            mLocationPermissionsGranted = false;
-                            return;
-                        }
-                    }
-                    mLocationPermissionsGranted = true;
-                    //initialize map
-                    initMap();
-                }
-            }
-
-        }
     }
 
     //hiding keybaord after user enters location
