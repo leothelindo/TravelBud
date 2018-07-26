@@ -31,10 +31,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".PopUp"
-            android:theme="@style/popUpWindow"
-            ></activity>
-        <activity android:name=".Biography"></activity>
-        <activity android:name=".Chat"></activity>
+            android:theme="@style/popUpWindow"/>
+        <activity android:name=".Biography"/>
+        <activity android:name=".Chat"/>
     </application>
 
 </manifest>
