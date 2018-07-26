@@ -40,6 +40,3 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation files('libs/CircleImageView-master/gradle/wrapper/gradle-wrapper.jar')
 }
-
-
-
