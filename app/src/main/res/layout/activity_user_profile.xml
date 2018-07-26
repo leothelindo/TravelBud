@@ -12,23 +12,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="22dp"
-        android:text="Account Info"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="24dp"
+        android:text="User Info"
         android:textColor="@color/colorPrimary"
         android:textSize="28sp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="114dp"
         tools:layout_editor_absoluteY="189dp" />
-
-    <Button
-        android:id="@+id/signOut_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginBottom="59dp"
-        android:text="Sign Out" />
 
     <TextView
         android:id="@+id/first_tv"
@@ -39,16 +30,6 @@
         android:layout_marginEnd="101dp"
         android:text="First"
         android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/last_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/first_tv"
-        android:layout_marginTop="100dp"
-        android:text="Last"
-        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/phone_tv"
@@ -63,9 +44,10 @@
         android:id="@+id/bio_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bioBody_tv"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginBottom="-219dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="198dp"
         android:text="biography" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -82,8 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="232dp"
+        android:layout_alignStart="@+id/bio_tv"
+        android:layout_marginTop="234dp"
         android:text="biography body" />
 
     <TextView

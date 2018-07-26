@@ -70,6 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.put("firstName", firstnameInput.getText().toString());
         user.put("lastName", lastnameInput.getText().toString());
         user.put("phoneNum",phoneInput.getText().toString());
+        user.put("trips", 0);
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

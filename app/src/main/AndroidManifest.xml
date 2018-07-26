@@ -33,7 +33,8 @@
         <activity android:name=".MapActivity" />
         <activity android:name=".Biography" />
         <activity android:name=".Chat" />
-        <activity android:name=".UserList"></activity>
+        <activity android:name=".UserList" />
+        <activity android:name=".UserProfile"></activity>
     </application>
 
 </manifest>
