@@ -50,7 +50,7 @@ public class AccountFragment extends Fragment {
         bio_tv = (TextView) view.findViewById(R.id.bioBody_tv);
         bio_tv.setText(ParseUser.getCurrentUser().get("bio").toString());
         trips_iv = (TextView) view.findViewById(R.id.trips_tv);
-        //trips_iv.setText(ParseUser.getCurrentUser().getInt("trips");
+        trips_iv.setText(Integer.toString(ParseUser.getCurrentUser().getInt("trips")));
         prof_iv = (ImageView) view.findViewById(R.id.imageView3);
         ParseFile imageFile = (ParseFile) ParseUser.getCurrentUser().get("picture");
         imageFile.getDataInBackground(new GetDataCallback() {

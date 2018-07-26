@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="0dp"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimary"
     android:gravity="center_vertical|start">
 
     <RelativeLayout
