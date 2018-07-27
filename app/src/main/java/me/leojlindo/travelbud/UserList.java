@@ -4,7 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +39,14 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
     public static ParseUser user = ParseUser.getCurrentUser();
 
     Context context = this;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private Toolbar mToolbar;
+    NavigationView navigationView;
+    Fragment accountFragment = new AccountFragment();
+    Fragment homeFragment = new HomeFragment();
+    Fragment settingFragment = new SettingFragment();
+    Fragment messageFragment = new MessageFragment();
 
 
     @Override
@@ -41,6 +54,7 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
         loadUserList();
+
     }
 
     private void loadUserList() {
@@ -48,7 +62,7 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
         final ProgressDialog dia = ProgressDialog.show(this, null,
                 getString(R.string.alert_loading));
 
-        ParseUser.getQuery().whereNotEqualTo("viewable", false)
+        ParseUser.getQuery().whereNotEqualTo("username", user.getUsername())
                 .findInBackground(new FindCallback<ParseUser>() {
 
                     @Override
