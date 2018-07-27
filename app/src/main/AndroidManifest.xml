@@ -37,16 +37,6 @@
         <activity android:name=".UserList" />
         <activity android:name=".UserProfile"/>
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.codepath.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@layout/fileprovider" />
-        </provider>
-
     </application>
 
 </manifest>

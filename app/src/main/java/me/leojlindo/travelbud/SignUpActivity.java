@@ -2,13 +2,9 @@ package me.leojlindo.travelbud;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,13 +35,10 @@ public class SignUpActivity extends AppCompatActivity {
     private Button photoBtn;
     private Uri mediaUrl;
     private ImageView profInput;
+    File picture;
     public static final int TAKE_PIC_REQUEST_CODE = 0;
     public static final int CHOOSE_PIC_REQUEST_CODE = 1;
     public static final int MEDIA_TYPE_IMAGE = 2;
-    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    public String photoFileName = "photo.jpg";
-    File photoFile;
-    public Uri bmpUri;
 
 
 
@@ -78,28 +71,23 @@ public class SignUpActivity extends AppCompatActivity {
                         choosePictureIntent.setType("image/+");
                         startActivityForResult(choosePictureIntent, CHOOSE_PIC_REQUEST_CODE);
                     }
-                });
+                });/*
                 builder.setNegativeButton("Take Photo", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        // Create a File reference to access to future access
-                        photoFile = getPhotoFileUri(photoFileName);
-
-                        // wrap File object into a content provider
-                        // required for API >= 24
-                        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-                        Uri fileProvider = FileProvider.getUriForFile(SignUpActivity.this, "com.codepath.fileprovider", photoFile);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-                        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-                        // So as long as the result is not null, it's safe to use the intent.
-                        if (intent.resolveActivity(getPackageManager()) != null) {
-                            // Start the image capture intent to take photo
-                            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                        // take a photo
+                        Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        mediaUrl = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                        if(mediaUrl == null){
+                            // displays an error
+                            Toast.makeText(getApplicationContext(), "Sorry there was an error taking the picture",
+                                    Toast.LENGTH_LONG).show();
+                        } else{
+                            takePicture.putExtra(MediaStore.EXTRA_OUTPUT, mediaUrl);
+                            startActivityForResult(takePicture, TAKE_PIC_REQUEST_CODE);
                         }
                     }
-                });
+                });*/
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
@@ -139,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.put("lastName", lastnameInput.getText().toString());
         user.put("phoneNum",phoneInput.getText().toString());
         user.put("trips", 0);
-        user.put("picture", profInput);
+        //user.put("picture", image/+);
 
 
 
@@ -159,46 +147,21 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        photoBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Bitmap bitmap = ((BitmapDrawable)) profpic_iv.getDrawable()).getBitmap();
-            }
-        });
-        */
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                ImageView ivPreview = (ImageView) findViewById(R.id.profpic_iv);
-                ivPreview.setImageBitmap(takenImage);
-            }
-            else{
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
-    public File getPhotoFileUri(String fileName) {
-        // Get safe storage directory for photos
-        // Use `getExternalFilesDir` on Context to access package-specific directories.
-        // This way, we don't need to request external read/write runtime permissions.
-        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "TravelBud");
-
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            //Log.d(APP_TAG, "failed to create directory");
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == CHOOSE_PIC_REQUEST_CODE){
+                if(data == null) {
+                    Toast.makeText(getApplicationContext(), "Image cannot be null!", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    mediaUrl = data.getData();
+                    profInput.setImageURI(mediaUrl);
+                }
+            }
         }
-
-        // Return the file target for the photo based on filename
-        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
-        bmpUri = FileProvider.getUriForFile(SignUpActivity.this, "com.codepath.fileprovider", file);
-
-        return file;
     }
 
 
