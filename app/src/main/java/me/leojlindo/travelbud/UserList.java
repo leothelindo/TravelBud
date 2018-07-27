@@ -175,6 +175,10 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
                 v = getLayoutInflater().inflate(R.layout.users, null);
 
             ParseUser c = getItem(pos);
+            TextView num = (TextView) v.findViewById(R.id.num_tv);
+            num.setText("Completed Trips: " + c.get("trips").toString());
+            TextView dist = (TextView) v.findViewById(R.id.shared_tv);
+            dist.setText("Distance Shared: " + " miles");
             TextView lbl = (TextView) v.findViewById(R.id.big_tv);
             lbl.setText(c.getUsername());
             lbl.setCompoundDrawablesWithIntrinsicBounds(
