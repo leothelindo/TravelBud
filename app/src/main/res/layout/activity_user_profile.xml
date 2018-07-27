@@ -6,14 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <include
+        layout="@layout/navigation_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="64dp"
         android:text="User Info"
         android:textColor="@color/colorPrimary"
         android:textSize="28sp"
@@ -25,9 +33,9 @@
         android:id="@+id/first_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginEnd="101dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="152dp"
+        android:layout_toStartOf="@+id/trips_tv"
         android:text="First"
         android:textSize="24sp" />
 
@@ -35,19 +43,18 @@
         android:id="@+id/phone_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/first_tv"
-        android:layout_marginTop="135dp"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="41dp"
         android:text="Trips Completed:" />
 
     <TextView
         android:id="@+id/bio_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="198dp"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="262dp"
         android:text="biography" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -55,17 +62,18 @@
         android:layout_width="200dp"
         android:layout_height="120dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginStart="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="124dp"
         app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
 
     <TextView
         android:id="@+id/bioBody_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/bio_tv"
-        android:layout_marginTop="234dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginBottom="255dp"
         android:text="biography body" />
 
     <TextView
@@ -74,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/phone_tv"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="31dp"
         android:text="num" />
+
 </RelativeLayout>

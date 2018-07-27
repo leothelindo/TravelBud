@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -40,6 +41,10 @@ public class MessageFragment extends Fragment{
     public static ParseUser user = ParseUser.getCurrentUser();
 
     public View view;
+
+    public ParseUser loader;
+
+    ParseQuery query = ParseUser.getQuery();
 
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
@@ -97,9 +102,12 @@ public class MessageFragment extends Fragment{
         final ProgressDialog dia = ProgressDialog.show(getContext(), null,
                 getString(R.string.alert_loading));
 
-        ParseUser.getQuery().whereNotEqualTo("viewable", false)
-                .findInBackground(new FindCallback<ParseUser>() {
 
+
+        query.whereNotEqualTo("username", user.getUsername()).findInBackground();
+
+        query.whereNotEqualTo("viewable", false)
+                .findInBackground(new FindCallback<ParseUser>() {
                     @Override
                     public void done(List<ParseUser> li, ParseException e) {
                         dia.dismiss();
@@ -107,7 +115,6 @@ public class MessageFragment extends Fragment{
                             if (li.size() == 0)
                                 Toast.makeText(getContext(), R.string.msg_no_user_found,
                                         Toast.LENGTH_SHORT).show();
-
                             uList = new ArrayList<ParseUser>(li);
                             ListView list = (ListView) view.findViewById(R.id.list);
                             list.setAdapter(new UserAdapter());
