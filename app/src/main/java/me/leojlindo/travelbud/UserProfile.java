@@ -3,6 +3,7 @@ package me.leojlindo.travelbud;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -21,7 +22,8 @@ public class UserProfile extends AppCompatActivity {
     TextView trips;
     String buddy;
     ParseUser user;
-    ParseQuery<ParseUser> userQuery = ParseQuery.getQuery("username");
+    ImageView prof;
+    ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
 
 
 
@@ -34,7 +36,21 @@ public class UserProfile extends AppCompatActivity {
         first = (TextView) findViewById(R.id.first_tv);
         first.setText(buddy);
         bio = (TextView) findViewById(R.id.bioBody_tv);
-        trips = (TextView) findViewById(R.id.trips_tv);
+        trips = (TextView) findViewById(R.id.phone_tv);
+        prof = (ImageView) findViewById(R.id.imageView3);
+        /*ParseFile imageFile = null;
+        try {
+            imageFile = (ParseFile) userQuery.getFirst().get("picture");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        imageFile.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                prof.setImageBitmap(bitmap);
+            }
+        });*/
         userQuery.whereEqualTo("username", buddy);
         userQuery.findInBackground(new FindCallback<ParseUser>() {
             public void done(List<ParseUser> username, ParseException e) {
@@ -53,7 +69,7 @@ public class UserProfile extends AppCompatActivity {
         }
 
         try {
-            trips.setText(Integer.toString(userQuery.getFirst().getInt("trips")));
+            trips.setText("Trips Completed: " + Integer.toString(userQuery.getFirst().getInt("trips")));
         } catch (ParseException e) {
             e.printStackTrace();
         }
