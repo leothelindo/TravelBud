@@ -33,9 +33,10 @@
         android:id="@+id/first_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="152dp"
-        android:layout_toStartOf="@+id/trips_tv"
+        android:layout_marginEnd="68dp"
+        android:layout_marginTop="133dp"
         android:text="First"
         android:textSize="24sp" />
 
@@ -43,9 +44,10 @@
         android:id="@+id/phone_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView3"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="39dp"
+        android:layout_marginTop="191dp"
         android:text="Trips Completed:" />
 
     <TextView
@@ -54,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="262dp"
+        android:layout_marginTop="280dp"
         android:text="biography" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -71,18 +73,18 @@
         android:id="@+id/bioBody_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView2"
-        android:layout_marginBottom="255dp"
+        android:layout_marginTop="300dp"
         android:text="biography body" />
 
-    <TextView
-        android:id="@+id/trips_tv"
-        android:layout_width="37dp"
+    <Button
+        android:id="@+id/message_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bioBody_tv"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/phone_tv"
-        android:layout_marginEnd="31dp"
-        android:text="num" />
+        android:layout_marginEnd="48dp"
+        android:text="Send Message" />
 
 </RelativeLayout>
