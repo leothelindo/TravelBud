@@ -1,5 +1,6 @@
 package me.leojlindo.travelbud;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -77,6 +78,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private AutoCompleteTextView endLocation;
     private ImageView mapGps, mapInfo;
     private Button goBtn;
+    private Button friendsBtn;
 
     //variables
     private boolean mLocationPermissionsGranted = false;
@@ -105,15 +107,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         mapGps = view.findViewById(R.id.ic_gps);
         mapInfo = view.findViewById(R.id.place_info);
         goBtn = view.findViewById(R.id.go_btn);
+        friendsBtn = view.findViewById(R.id.friends_btn);
 
         LinearLayout bottomSheetViewGroup = (LinearLayout) view.findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottomSheetViewGroup);
 
         sheetBehavior.setPeekHeight(0);
 
-
         getLocationPermission();
-
 
         //when go button is clicked it draws the route
         goBtn.setOnClickListener(new View.OnClickListener()
@@ -123,6 +124,16 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             {
                 getPath();
                 sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                //when findfriends button is clicked
+                friendsBtn.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        startActivity(new Intent(getActivity(), UserList.class));
+                    }
+                });
 
             }
         });
