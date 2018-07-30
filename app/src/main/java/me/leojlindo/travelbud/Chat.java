@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -74,6 +75,7 @@ public class Chat extends CustomActivity
 
     TextView title;
 
+    Button back;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -106,6 +108,14 @@ public class Chat extends CustomActivity
 
         title = (TextView) findViewById(R.id.buddy_tv);
         title.setText(buddy);
+
+        back = (Button) findViewById(R.id.back);
+        /*back.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent i = new Intent(Chat.this, MessageFragment.class);
+                startActivity(i);
+            }
+        });*/
 
 
         //getActionBar().setDisplayHomeAsUpEnabled(true);

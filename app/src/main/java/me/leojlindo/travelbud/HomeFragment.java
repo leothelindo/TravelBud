@@ -117,7 +117,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             {
                 getPath();
 
-                sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
+                //sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
 
 
             }

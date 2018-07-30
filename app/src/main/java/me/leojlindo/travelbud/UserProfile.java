@@ -1,5 +1,6 @@
 package me.leojlindo.travelbud;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -31,6 +33,8 @@ public class UserProfile extends AppCompatActivity {
     ParseUser u;
     TextView header;
     ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
+    ParseFile imageFile;
+    Button back;
 
 
 
@@ -39,8 +43,7 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-
-
+        back = (Button) findViewById(R.id.back);
         buddy = getIntent().getStringExtra(Const.EXTRA_DATA);
         first = (TextView) findViewById(R.id.first_tv);
         first.setText(buddy);
@@ -65,6 +68,13 @@ public class UserProfile extends AppCompatActivity {
                 prof.setImageBitmap(bitmap);
             }
         });*/
+        back.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent i = new Intent(UserProfile.this, UserList.class);
+                startActivity(i);
+            }
+        });
+
         userQuery.whereEqualTo("username", buddy);
         userQuery.findInBackground(new FindCallback<ParseUser>() {
             public void done(List<ParseUser> username, ParseException e) {
