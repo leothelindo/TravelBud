@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -39,8 +40,6 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-
-
         buddy = getIntent().getStringExtra(Const.EXTRA_DATA);
         first = (TextView) findViewById(R.id.first_tv);
         first.setText(buddy);
@@ -52,12 +51,12 @@ public class UserProfile extends AppCompatActivity {
         msg_btn = (Button) findViewById(R.id.message_btn);
 
 
-        /*ParseFile imageFile = null;
-        try {
+        /*try {
             imageFile = (ParseFile) userQuery.getFirst().get("picture");
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        assert imageFile != null;
         imageFile.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] data, ParseException e) {
@@ -70,6 +69,7 @@ public class UserProfile extends AppCompatActivity {
             public void done(List<ParseUser> username, ParseException e) {
                 if (e == null) {
                     Log.d("score", "Retrieved username");
+                    u = username.get(0);
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                 }
@@ -79,15 +79,17 @@ public class UserProfile extends AppCompatActivity {
         msg_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
 
-
                 try {
-                    u = userQuery.getFirst();
+                    userQuery.getFirst().put("viewable", true);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                u.put("viewable", true);
-                u.saveEventually();
+                try {
+                    userQuery.getFirst().saveEventually();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(UserProfile.this, "YEET", Toast.LENGTH_LONG).show();
 
                 //Intent i = new Intent(UserProfile.this, Chat.class);
 
@@ -106,11 +108,6 @@ public class UserProfile extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        //bio.setText(userQuery.get("bio").
-
-        //trips.setText();
-        //trips.setText(Integer.toString(ParseUser.getQuery().whereEqualTo("username", buddy).getInt("trips")));
-
 
     }
 
