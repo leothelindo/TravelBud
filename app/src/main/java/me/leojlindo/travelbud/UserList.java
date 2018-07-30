@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +31,7 @@ import me.leojlindo.travelbud.utils.Utils;
 
 public class UserList extends AppCompatActivity implements View.OnClickListener{
 
-    /** The Chat list. All other users besides the current logged in user */
+    /** All other users besides the current logged in user */
     public static ArrayList<ParseUser> uList;
 
     /** The user. */
@@ -43,10 +42,6 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
     NavigationView navigationView;
-    Fragment accountFragment = new AccountFragment();
-    Fragment homeFragment = new HomeFragment();
-    Fragment settingFragment = new SettingFragment();
-    Fragment messageFragment = new MessageFragment();
 
 
     @Override
