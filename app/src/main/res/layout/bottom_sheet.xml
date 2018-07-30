@@ -86,6 +86,7 @@
         android:background="#000"
         android:foreground="?attr/selectableItemBackground"
         android:text="Find Friends"
+        android:id="@+id/friends_btn"
         android:textColor="#fff" />
 
 </LinearLayout>
