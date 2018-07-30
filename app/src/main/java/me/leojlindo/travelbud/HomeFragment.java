@@ -8,6 +8,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -90,7 +92,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     float[] results = new float[1];
     float resultOne;
 
-
+    //bottom sheet
+    Button btnBottomSheet;
+    LinearLayout layoutBottomSheet;
+    BottomSheetBehavior sheetBehavior;
 
     //onCreateView method is called when Fragment should create its View object hierarchy
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -102,6 +107,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         goBtn = view.findViewById(R.id.go_btn);
 
         getLocationPermission();
+
 
         //when go button is clicked it draws the route
         goBtn.setOnClickListener(new View.OnClickListener()
