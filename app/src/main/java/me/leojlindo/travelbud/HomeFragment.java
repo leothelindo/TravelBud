@@ -1,6 +1,5 @@
 package me.leojlindo.travelbud;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -9,6 +8,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -88,6 +89,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private LatLng latlngOne;
     private LatLng latlngTwo;
     private boolean isStart = true;
+    float[] results = new float[1];
+    float resultOne;
+
+    //bottom sheet
+    Button btnBottomSheet;
+    LinearLayout layoutBottomSheet;
+    BottomSheetBehavior sheetBehavior;
 
     //onCreateView method is called when Fragment should create its View object hierarchy
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -100,6 +108,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
         getLocationPermission();
 
+
         //when go button is clicked it draws the route
         goBtn.setOnClickListener(new View.OnClickListener()
         {
@@ -107,7 +116,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             public void onClick(View v)
             {
                 getPath();
-                startActivity(new Intent(getActivity(), PopUp.class));
+
+                sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
+
+
             }
         });
         return view;
@@ -455,6 +467,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
             }
         });
+
+        Location.distanceBetween(latlngOne.latitude, latlngOne.longitude,
+                latlngTwo.latitude, latlngTwo.longitude,
+                results);
+
+        resultOne = results[0];
+
+
     }
 
 
@@ -480,6 +500,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
         return url;
     }
+
 
     private class ReadTask extends AsyncTask<String, Void , String> {
 

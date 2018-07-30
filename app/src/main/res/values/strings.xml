@@ -12,6 +12,7 @@
     <string name="sending_text">Sending...</string>
     <string name="err_users">Error occurred while finding users:</string>
     <string name="google_maps_directions_api">AIzaSyChNZPDWUNF-mCPo1059f2_0JpdxLeXGDk</string>
+    <string name="distance_amount">%1$f</string>
 
 
 </resources>
