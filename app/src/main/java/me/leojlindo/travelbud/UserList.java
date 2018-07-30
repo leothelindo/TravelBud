@@ -181,9 +181,9 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
             dist.setText("Distance Shared: " + " miles");
             TextView lbl = (TextView) v.findViewById(R.id.big_tv);
             lbl.setText(c.getUsername());
-            lbl.setCompoundDrawablesWithIntrinsicBounds(
+            /*lbl.setCompoundDrawablesWithIntrinsicBounds(
                     c.getBoolean("online") ? R.drawable.ic_online
-                            : R.drawable.ic_offline, 0, R.drawable.arrow, 0);
+                            : R.drawable.ic_offline, 0, R.drawable.arrow, 0);*/
 
             return v;
         }

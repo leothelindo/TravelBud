@@ -2,7 +2,10 @@ package me.leojlindo.travelbud;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,12 +20,16 @@ import me.leojlindo.travelbud.utils.Const;
 
 public class UserProfile extends AppCompatActivity {
 
+    private Toolbar mToolbar;
     TextView first;
     TextView bio;
     TextView trips;
     String buddy;
     ParseUser user;
     ImageView prof;
+    Button msg_btn;
+    ParseUser u;
+    TextView header;
     ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
 
 
@@ -32,12 +39,19 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
+
+
         buddy = getIntent().getStringExtra(Const.EXTRA_DATA);
         first = (TextView) findViewById(R.id.first_tv);
         first.setText(buddy);
+        header = (TextView) findViewById(R.id.buddy_tv);
+        header.setText(buddy);
         bio = (TextView) findViewById(R.id.bioBody_tv);
         trips = (TextView) findViewById(R.id.phone_tv);
         prof = (ImageView) findViewById(R.id.imageView3);
+        msg_btn = (Button) findViewById(R.id.message_btn);
+
+
         /*ParseFile imageFile = null;
         try {
             imageFile = (ParseFile) userQuery.getFirst().get("picture");
@@ -59,6 +73,25 @@ public class UserProfile extends AppCompatActivity {
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                 }
+            }
+        });
+
+        msg_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+
+
+                try {
+                    u = userQuery.getFirst();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                u.put("viewable", true);
+                u.saveEventually();
+
+                //Intent i = new Intent(UserProfile.this, Chat.class);
+
+
             }
         });
 
