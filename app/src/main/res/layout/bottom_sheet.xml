@@ -10,11 +10,54 @@
     app:behavior_peekHeight="56dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Transportation"
+        android:textColor="#444"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Walking" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Public" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="29dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Biking" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="43dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="driving" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
         android:weightSum="3">
 
         <TextView
@@ -35,26 +78,6 @@
             android:textSize="15dp"
             android:textStyle="bold"></TextView>
     </LinearLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose Transportation"
-        android:textColor="#444"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Walking" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bus" />
 
     <Button
         android:layout_width="match_parent"
