@@ -33,9 +33,8 @@
         android:id="@+id/first_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="68dp"
+        android:layout_alignStart="@+id/phone_tv"
         android:layout_marginTop="133dp"
         android:text="First"
         android:textSize="24sp" />
@@ -54,9 +53,8 @@
         android:id="@+id/bio_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="280dp"
+        android:layout_below="@+id/message_btn"
         android:text="biography" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -73,18 +71,16 @@
         android:id="@+id/bioBody_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="300dp"
+        android:layout_below="@+id/bio_tv"
         android:text="biography body" />
 
     <Button
         android:id="@+id/message_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bioBody_tv"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="48dp"
+        android:layout_alignStart="@+id/first_tv"
+        android:layout_below="@+id/imageView3"
         android:text="Send Message" />
 
 </RelativeLayout>
