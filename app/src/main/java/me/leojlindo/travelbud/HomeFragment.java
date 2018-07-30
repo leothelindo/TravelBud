@@ -1,6 +1,5 @@
 package me.leojlindo.travelbud;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -9,13 +8,10 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +75,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private AutoCompleteTextView endLocation;
     private ImageView mapGps, mapInfo;
     private Button goBtn;
-    private BottomSheetBehavior bottomSheetBehavior;
 
     //variables
     private boolean mLocationPermissionsGranted = false;
@@ -92,7 +87,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private LatLng latlngOne;
     private LatLng latlngTwo;
     private boolean isStart = true;
-    float[] distancebtw;
     float[] results = new float[1];
     float resultOne;
 
@@ -109,9 +103,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
         getLocationPermission();
 
-        View bottomSheet = view.findViewById(R.id.bottom_sheet);
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
         //when go button is clicked it draws the route
         goBtn.setOnClickListener(new View.OnClickListener()
         {
@@ -119,41 +110,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             public void onClick(View v)
             {
                 getPath();
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-                bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-                    @Override
-                    public void onStateChanged(@NonNull View view, int i) {
-
-                    }
-
-                    @Override
-                    public void onSlide(@NonNull View view, float v) {
-
-                    }
-                });
-
-                //startActivity(new Intent(getActivity(), ));
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
-                View parentView = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-                bottomSheetDialog.setContentView(parentView);
-
-                BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View)parentView.getParent());
-                bottomSheetBehavior.setPeekHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,100, getResources().getDisplayMetrics()));
-
-                bottomSheetDialog.show();
-
-                Button friendsBtn = (Button) parentView.findViewById(R.id.find_friends_btn);
-
-                friendsBtn.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        startActivity(new Intent(getActivity(), UserList.class));
-                    }
-                });
-
 
             }
         });
