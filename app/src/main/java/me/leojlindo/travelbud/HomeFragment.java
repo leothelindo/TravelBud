@@ -1,5 +1,6 @@
 package me.leojlindo.travelbud;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -18,8 +19,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -404,9 +405,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         hideSoftKeyboard();
     }
 
-    //hiding keybaord after user enters location
+    //hiding keyboard after user enters location
     private void hideSoftKeyboard() {
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        // getting a fcous
+        View view = getActivity().getCurrentFocus();
+        //now closing the keyboard right away
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 
@@ -583,7 +590,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                 }
 
                 polyLineOptions.addAll(points);
-                polyLineOptions.width(4);
+                polyLineOptions.width(12);
                 polyLineOptions.color(Color.BLUE);
             }
 
