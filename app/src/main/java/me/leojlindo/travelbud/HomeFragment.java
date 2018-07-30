@@ -106,6 +106,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         mapInfo = view.findViewById(R.id.place_info);
         goBtn = view.findViewById(R.id.go_btn);
 
+        LinearLayout bottomSheetViewGroup = (LinearLayout) view.findViewById(R.id.bottom_sheet);
+        sheetBehavior = BottomSheetBehavior.from(bottomSheetViewGroup);
+
+        sheetBehavior.setPeekHeight(0);
+
+
         getLocationPermission();
 
 
@@ -116,9 +122,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             public void onClick(View v)
             {
                 getPath();
-
-                //sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
-
+                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
             }
         });
