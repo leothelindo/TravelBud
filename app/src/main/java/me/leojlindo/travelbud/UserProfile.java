@@ -1,6 +1,8 @@
 package me.leojlindo.travelbud;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -55,19 +57,7 @@ public class UserProfile extends AppCompatActivity {
         msg_btn = (Button) findViewById(R.id.message_btn);
 
 
-        /*ParseFile imageFile = null;
-        try {
-            imageFile = (ParseFile) userQuery.getFirst().get("picture");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        imageFile.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] data, ParseException e) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                prof.setImageBitmap(bitmap);
-            }
-        });*/
+
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent i = new Intent(UserProfile.this, UserList.class);
@@ -116,11 +106,35 @@ public class UserProfile extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         //bio.setText(userQuery.get("bio").
 
         //trips.setText();
         //trips.setText(Integer.toString(ParseUser.getQuery().whereEqualTo("username", buddy).getInt("trips")));
 
+        setUserImage();
+
+    }
+
+    private void setUserImage(){
+
+
+
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.whereEqualTo("username", buddy);
+        query.findInBackground(new FindCallback<ParseUser>() {
+            public void done(List<ParseUser> objects, ParseException e) {
+                if (e == null) {
+                    try {
+                        imageFile = objects.get(0).getParseFile("picture");
+                        Bitmap bmp = BitmapFactory.decodeStream(imageFile.getDataStream());
+                        prof.setImageBitmap(bmp);
+                    } catch (Exception a) {
+                        a.printStackTrace();
+                    }
+                }
+            }
+        });
 
     }
 
