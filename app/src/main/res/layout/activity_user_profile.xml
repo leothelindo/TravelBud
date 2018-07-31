@@ -83,4 +83,24 @@
         android:layout_below="@+id/imageView3"
         android:text="Send Message" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginBottom="189dp"
+        android:text="Shared Route"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/shared_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="-189dp"
+        app:srcCompat="@drawable/cast_expanded_controller_seekbar_thumb" />
+
 </RelativeLayout>

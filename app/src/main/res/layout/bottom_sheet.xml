@@ -25,28 +25,30 @@
         android:orientation="horizontal"
         android:weightSum="3">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Walking" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Walking" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text="Public" />
 
         <Button
             android:id="@+id/button4"
-            android:layout_width="29dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Biking" />
 
         <Button
             android:id="@+id/button5"
-            android:layout_width="43dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="driving" />
@@ -64,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Distance"
+            android:text="wack"
             android:textColor="#444"
             android:textSize="18dp"
             android:textStyle="bold" />
@@ -80,13 +82,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/friends_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@color/appGreen"
+        android:background="#000"
         android:foreground="?attr/selectableItemBackground"
         android:text="Find Friends"
+        android:id="@+id/friends_btn"
         android:textColor="#fff" />
 
 </LinearLayout>

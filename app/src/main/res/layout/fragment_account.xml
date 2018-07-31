@@ -106,4 +106,13 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/routes"
+        android:layout_marginTop="-255dp"
+        app:srcCompat="@drawable/cast_expanded_controller_seekbar_thumb" />
 </RelativeLayout>
