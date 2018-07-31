@@ -80,13 +80,13 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/friends_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="#000"
+        android:background="@color/appGreen"
         android:foreground="?attr/selectableItemBackground"
         android:text="Find Friends"
-        android:id="@+id/friends_btn"
         android:textColor="#fff" />
 
 </LinearLayout>

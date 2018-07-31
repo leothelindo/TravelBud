@@ -53,6 +53,7 @@ public class MessageFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState)
     {
 
+
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.fragment_message, parent, false);
         loadUserList();
