@@ -94,4 +94,16 @@
         android:layout_alignTop="@+id/phone_tv"
         android:layout_marginEnd="12dp"
         android:text="num" />
+
+    <TextView
+        android:id="@+id/routes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginBottom="255dp"
+        android:text="Routes"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 </RelativeLayout>

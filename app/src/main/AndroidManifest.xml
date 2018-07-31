@@ -21,7 +21,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAc50yK2kTKR8hDwTjEgtqZRu4Q2IOjdi4" />
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".UserList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +32,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".Biography" />
         <activity android:name=".Chat" />
-        <activity android:name=".UserList" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".UserProfile"/>
 
     </application>
