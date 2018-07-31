@@ -77,9 +77,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     //widgets
     private AutoCompleteTextView startLocation;
     private AutoCompleteTextView endLocation;
-    private ImageView mapGps, mapInfo;
+    private ImageView mapGps;
     private Button goBtn;
     private Button friendsBtn;
+    private Button clearBtn;
 
     //variables
     private boolean mLocationPermissionsGranted = false;
@@ -96,7 +97,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     float resultOne;
 
     //bottom sheet
-    Button btnBottomSheet;
     LinearLayout layoutBottomSheet;
     BottomSheetBehavior sheetBehavior;
 
@@ -106,9 +106,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         startLocation = view.findViewById(R.id.start_location);
         endLocation = view.findViewById(R.id.end_location);
         mapGps = view.findViewById(R.id.ic_gps);
-        mapInfo = view.findViewById(R.id.place_info);
         goBtn = view.findViewById(R.id.go_btn);
         friendsBtn = view.findViewById(R.id.friends_btn);
+        clearBtn = view.findViewById(R.id.clear_btn);
 
         LinearLayout bottomSheetViewGroup = (LinearLayout) view.findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottomSheetViewGroup);
@@ -118,15 +118,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         getLocationPermission();
 
         //when go button is clicked it draws the route
-        goBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
+                goBtn.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                startLocation.setEnabled(false);
+                endLocation.setEnabled(false);
                 getPath();
                 sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
-                //when findfriends button is clicked
+                //when find friends button is clicked
                 friendsBtn.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
@@ -138,6 +140,18 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
             }
         });
+
+        //clear start and end location when clear button clicked
+        clearBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
 
     }
@@ -255,22 +269,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked gps icon");
                 getDeviceLocation();
-            }
-        });
-
-        mapInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked place info");
-                try {
-                    if (marker.isInfoWindowShown()) {
-                        marker.hideInfoWindow();
-                    } else {
-                        marker.showInfoWindow();
-                    }
-                } catch (NullPointerException e) {
-                    Log.e(TAG, "onClick: NullPointerException: " + e.getMessage());
-                }
             }
         });
 
@@ -412,7 +410,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         //now closing the keyboard right away
         if (view != null) {
             InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            inputManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
         }
     }
 

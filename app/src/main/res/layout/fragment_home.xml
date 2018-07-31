@@ -5,109 +5,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="610dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        tools:context=".MapsActivity" />
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="610dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            tools:context=".MapsActivity" />
 
-    <RelativeLayout
-        android:id="@+id/relLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/white_border"
-        android:elevation="10dp">
+        <RelativeLayout
+            android:id="@+id/relLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/white_border"
+            android:elevation="10dp">
+
+            <ImageView
+                android:id="@+id/ic_magnify"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_magnify" />
+
+            <AutoCompleteTextView
+                android:id="@+id/start_location"
+                android:layout_width="287dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="60dp"
+                android:background="@null"
+                android:hint="Enter Start Location"
+                android:imeOptions="actionSearch"
+                android:textColor="#000"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/clear_btn"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:text="Clear" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/relLayout1"
+            android:background="@drawable/white_border"
+            android:elevation="10dp">
+
+            <Button
+                android:id="@+id/go_btn"
+                android:layout_width="68dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/relLayout1"
+                android:text="Go" />
+
+            <ImageView
+                android:id="@+id/ic_magnify2"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_magnify" />
+
+            <AutoCompleteTextView
+                android:id="@+id/end_location"
+                android:layout_width="281dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="66dp"
+                android:background="@null"
+                android:hint="Enter End Location"
+                android:imeOptions="actionSearch"
+                android:textColor="#000"
+                android:textSize="15sp" />
+        </RelativeLayout>
 
         <ImageView
-            android:id="@+id/ic_magnify"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:src="@drawable/ic_magnify" />
-
-        <AutoCompleteTextView
-            android:id="@+id/start_location"
-            android:layout_width="347dp"
-            android:layout_height="match_parent"
+            android:id="@+id/ic_gps"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:background="@null"
-            android:hint="Enter Start Location"
-            android:imeOptions="actionSearch"
-            android:textColor="#000"
-            android:textSize="15sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/relLayout1"
-        android:background="@drawable/white_border"
-        android:elevation="10dp">
-
-        <ImageView
-            android:id="@+id/ic_magnify2"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:src="@drawable/ic_magnify" />
-
-        <AutoCompleteTextView
-            android:id="@+id/end_location"
-            android:layout_width="347dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:background="@null"
-            android:hint="Enter End Location"
-            android:imeOptions="actionSearch"
-            android:textColor="#000"
-            android:textSize="15sp" />
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/ic_gps"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="111dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_gps" />
-
-    <ImageButton
-        android:id="@+id/place_info"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/ic_gps"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_info" />
-
-    <Button
-        android:id="@+id/go_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ic_gps"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="50dp"
-        android:text="Go" />
+            android:layout_marginTop="111dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_gps" />
 
     </RelativeLayout>
 
