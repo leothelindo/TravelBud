@@ -3,7 +3,6 @@ package me.leojlindo.travelbud;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -95,6 +94,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private boolean isStart = true;
     float[] results = new float[1];
     float resultOne;
+    private List<LatLng> lstLatLngRoute = new ArrayList<LatLng>();
 
     //bottom sheet
     LinearLayout layoutBottomSheet;
@@ -123,10 +123,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                     @Override
                     public void onClick(View v)
                     {
-                startLocation.setEnabled(false);
-                endLocation.setEnabled(false);
-                getPath();
-                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        getPath();
+                        zoomRoute();
+                        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
                 //when find friends button is clicked
                 friendsBtn.setOnClickListener(new View.OnClickListener()
@@ -589,7 +588,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
                 polyLineOptions.addAll(points);
                 polyLineOptions.width(12);
-                polyLineOptions.color(Color.BLUE);
+                polyLineOptions.color(getResources().getColor(R.color.colorPrimary));
             }
 
             mMap.addPolyline(polyLineOptions);
@@ -603,6 +602,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             downloadTask.execute(url);
 
     }
+
+    //zooming out to show full route
+    public void zoomRoute() {
+
+        lstLatLngRoute.add(latlngOne);
+        lstLatLngRoute.add(latlngTwo);
+
+        LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();
+        for (LatLng latLngPoint : lstLatLngRoute)
+            boundsBuilder.include(latLngPoint);
+
+        int routePadding = 450;
+        LatLngBounds latLngBounds = boundsBuilder.build();
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding));
+    }
+
 
     //wont crash when going to home fragment a second time
     @Override
