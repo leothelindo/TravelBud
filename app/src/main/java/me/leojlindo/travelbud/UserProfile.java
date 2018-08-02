@@ -1,9 +1,16 @@
 package me.leojlindo.travelbud;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -79,15 +86,8 @@ public class UserProfile extends AppCompatActivity {
         msg_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
 
-
-                try {
-                    u = userQuery.getFirst();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                u.put("viewable", true);
-                u.saveEventually();
+                notificationCall();
+                Log.d("Yort", "onClick: worked but no notifs");
 
                 //Intent i = new Intent(UserProfile.this, Chat.class);
 
@@ -114,6 +114,37 @@ public class UserProfile extends AppCompatActivity {
 
         setUserImage();
 
+    }
+
+    public void notificationCall(){
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this.getApplicationContext(), "notify_001");
+        Intent ii = new Intent(this.getApplicationContext(), UserProfile.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, 0);
+
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        //bigText.bigText(verseurl);
+        bigText.setBigContentTitle("Message Request Approved!");
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
+        mBuilder.setContentTitle("Message Request Approved!");
+        mBuilder.setContentText("You can now message " + buddy );
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        mBuilder.setStyle(bigText);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("notify_001",
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            mNotificationManager.createNotificationChannel(channel);
+        }
+
+        mNotificationManager.notify(0, mBuilder.build());
     }
 
     private void setUserImage(){
