@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -62,6 +63,8 @@ import java.util.List;
 import me.leojlindo.travelbud.Route.MapHttpConnection;
 import me.leojlindo.travelbud.Route.PathJSONParser;
 import me.leojlindo.travelbud.models.PlaceInfo;
+
+import static com.parse.Parse.getApplicationContext;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
@@ -123,9 +126,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                     @Override
                     public void onClick(View v)
                     {
-                        getPath();
-                        zoomRoute();
-                        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                            if(startLocation.getText().length( )< 1 || endLocation.getText().length() < 1){
+                                // Display toast
+                                Toast.makeText(getApplicationContext(), "Please enter your route!",Toast.LENGTH_LONG).show();
+                        } else {
+                            getPath();
+                            zoomRoute();
+                            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        }
 
                 //when find friends button is clicked
                 friendsBtn.setOnClickListener(new View.OnClickListener()
