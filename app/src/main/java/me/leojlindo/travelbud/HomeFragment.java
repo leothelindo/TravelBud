@@ -414,7 +414,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
 
-    ///////// Search auto Complete suggetions methods
+    ///////// Search auto Complete suggestions methods
 
     private AdapterView.OnItemClickListener autocompleteClickListener = new AdapterView.OnItemClickListener() {
         @Override
