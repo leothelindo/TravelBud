@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
+                android:background="@color/appYellow"
                 android:text="Clear" />
         </RelativeLayout>
 
@@ -71,11 +72,12 @@
 
             <Button
                 android:id="@+id/go_btn"
-                android:layout_width="68dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/relLayout1"
-                android:text="Go" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="-66dp"
+                android:layout_toEndOf="@+id/end_location"
+                android:background="@drawable/arrow" />
 
             <ImageView
                 android:id="@+id/ic_magnify2"

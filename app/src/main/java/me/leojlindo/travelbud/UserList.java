@@ -3,6 +3,8 @@ package me.leojlindo.travelbud;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -14,12 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -28,6 +33,7 @@ import java.util.List;
 import me.leojlindo.travelbud.utils.Const;
 import me.leojlindo.travelbud.utils.TouchEffect;
 import me.leojlindo.travelbud.utils.Utils;
+
 
 public class UserList extends AppCompatActivity implements View.OnClickListener{
 
@@ -53,7 +59,7 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
 
     }
 
-    private void loadUserList() {
+    public void loadUserList() {
 
         final ProgressDialog dia = ProgressDialog.show(this, null,
                 getString(R.string.alert_loading));
@@ -177,6 +183,15 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
             dist.setText("Distance Shared: " + " miles");
             TextView lbl = (TextView) v.findViewById(R.id.big_tv);
             lbl.setText(c.getUsername());
+            final ImageView prof = (ImageView) v.findViewById(R.id.imageView);
+            ParseFile imageFile = (ParseFile) c.get("picture");
+            imageFile.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] data, ParseException e) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    prof.setImageBitmap(bitmap);
+                }
+            });
             /*lbl.setCompoundDrawablesWithIntrinsicBounds(
                     c.getBoolean("online") ? R.drawable.ic_online
                             : R.drawable.ic_offline, 0, R.drawable.arrow, 0);*/
