@@ -27,6 +27,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,6 +190,8 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
                 @Override
                 public void done(byte[] data, ParseException e) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 0, byteArrayOutputStream);
                     prof.setImageBitmap(bitmap);
                 }
             });
