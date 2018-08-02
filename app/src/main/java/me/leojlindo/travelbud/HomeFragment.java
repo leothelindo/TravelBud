@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                     @Override
                     public void onClick(View v)
                     {
-                            if(startLocation.getText().length( )< 1 || endLocation.getText().length() < 1){
+                            if(startLocation.getText().length() < 1 || endLocation.getText().length() < 1){
                                 // Display toast
                                 Toast.makeText(getApplicationContext(), "Please enter your route!",Toast.LENGTH_LONG).show();
                         } else {

@@ -43,7 +43,9 @@ public class UserProfile extends AppCompatActivity {
     TextView header;
     ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
     ParseFile imageFile;
+    ParseFile routeFile;
     Button back;
+    ImageView sharedRoute;
 
 
 
@@ -62,6 +64,7 @@ public class UserProfile extends AppCompatActivity {
         trips = (TextView) findViewById(R.id.phone_tv);
         prof = (ImageView) findViewById(R.id.imageView3);
         msg_btn = (Button) findViewById(R.id.message_btn);
+        sharedRoute = (ImageView) findViewById(R.id.shared_image);
 
 
 
@@ -149,8 +152,6 @@ public class UserProfile extends AppCompatActivity {
 
     private void setUserImage(){
 
-
-
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.whereEqualTo("username", buddy);
         query.findInBackground(new FindCallback<ParseUser>() {
@@ -160,6 +161,11 @@ public class UserProfile extends AppCompatActivity {
                         imageFile = objects.get(0).getParseFile("picture");
                         Bitmap bmp = BitmapFactory.decodeStream(imageFile.getDataStream());
                         prof.setImageBitmap(bmp);
+
+                        //adding the users shared route
+                        routeFile = objects.get(0).getParseFile("route");
+                        Bitmap bmp2 = BitmapFactory.decodeStream(routeFile.getDataStream());
+                        sharedRoute.setImageBitmap(bmp2);
                     } catch (Exception a) {
                         a.printStackTrace();
                     }

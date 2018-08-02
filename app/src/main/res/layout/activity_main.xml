@@ -30,23 +30,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
 
-
-        <!--<Button
-            android:id="@+id/map_btn"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center_horizontal|center"
-            android:layout_marginBottom="41dp"
-            android:layout_marginEnd="36dp"
-            android:layout_weight="1"
-            android:text="Map" /> -->
-
-
     </RelativeLayout>
-
-
 
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"
@@ -54,9 +38,8 @@
         android:id="@+id/navigation_toolbar"
         app:menu="@menu/nav_menu"
         android:layout_gravity="start"
-        app:headerLayout="@layout/navigation_header"
+        app:headerLayout="@layout/navigation_header">
 
-        >
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
