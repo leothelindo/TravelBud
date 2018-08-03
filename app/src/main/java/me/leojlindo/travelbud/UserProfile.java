@@ -25,18 +25,23 @@ import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.leojlindo.travelbud.utils.Const;
 
 public class UserProfile extends AppCompatActivity {
 
+    public static ArrayList<ParseUser> uList;
+
+    /** The user. */
+    public static ParseUser user = ParseUser.getCurrentUser();
+
     private Toolbar mToolbar;
     TextView first;
     TextView bio;
     TextView trips;
     String buddy;
-    ParseUser user;
     ImageView prof;
     Button msg_btn;
     ParseUser u;
@@ -91,6 +96,14 @@ public class UserProfile extends AppCompatActivity {
 
                 notificationCall();
                 Log.d("Yort", "onClick: worked but no notifs");
+                try {
+                    userQuery.getFirst().put("viewable", true);
+                    userQuery.getFirst().saveInBackground();
+                    startActivity(new Intent(UserProfile.this, Chat.class).putExtra(Const.EXTRA_DATA, userQuery.getFirst().getUsername()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
 
                 //Intent i = new Intent(UserProfile.this, Chat.class);
 
@@ -110,10 +123,6 @@ public class UserProfile extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //bio.setText(userQuery.get("bio").
-
-        //trips.setText();
-        //trips.setText(Integer.toString(ParseUser.getQuery().whereEqualTo("username", buddy).getInt("trips")));
 
         setUserImage();
 
@@ -174,5 +183,10 @@ public class UserProfile extends AppCompatActivity {
         });
 
     }
+
+
+
+
+
 
 }

@@ -225,7 +225,6 @@ public class Chat extends CustomActivity
                 q.whereGreaterThan("createdAt", lastMsgDate);
             q.whereEqualTo("sender", buddy);
             q.whereEqualTo("receiver", MessageFragment.user.getUsername());
-            notificationCall();
 
         }
         q.orderByDescending("createdAt");
@@ -254,6 +253,7 @@ public class Chat extends CustomActivity
                 }, 1000);
             }
         });
+        notificationCall();
     }
 
     public void notificationCall(){
