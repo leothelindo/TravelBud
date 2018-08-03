@@ -99,7 +99,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="155dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_gps" />
+            android:src="@drawable/outline_my_location_black_48" />
 
     <RelativeLayout
         android:id="@+id/relLayout3"

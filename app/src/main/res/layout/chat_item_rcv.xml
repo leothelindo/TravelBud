@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/pad_10dp"
         android:background="@drawable/chat_bubble_gray"
+        android:elevation="10dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingBottom="@dimen/pad_5dp"
