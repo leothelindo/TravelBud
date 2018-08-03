@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -148,15 +149,22 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
 
                         //user picking different transportation methods
-                       /* walkingBtn.setOnTouchListener(new View.OnTouchListener() {
-                            @Override
-                            public boolean onTouch(View v, MotionEvent event) {
-                                walkingBtn.setPressed(true);
-                                return true;
-                            }
-                        });*/
+                        walkingBtn.setOnTouchListener(new View.OnTouchListener() {
 
-                //when find friends button is clicked
+                            @Override
+                            public boolean onTouch(View view, MotionEvent event) {
+                                if(event.getAction() == MotionEvent.ACTION_UP) {
+                                    walkingBtn.setBackgroundColor(getResources().getColor(R.color.main_color_gray));
+                                } else if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                                    walkingBtn.setBackgroundColor(getResources().getColor(R.color.white));
+                                }
+                                return false;
+                            }
+
+                        });
+
+
+                        //when find friends button is clicked
                 friendsBtn.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
