@@ -42,15 +42,15 @@ public class AccountFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         firstname_tv = (TextView) view.findViewById(R.id.first_tv);
-        firstname_tv.setText(ParseUser.getCurrentUser().get("firstName").toString());
-        lastname_tv = (TextView) view.findViewById(R.id.last_tv);
-        lastname_tv.setText(ParseUser.getCurrentUser().get("lastName").toString());
+        firstname_tv.setText(ParseUser.getCurrentUser().get("firstName").toString()+ " " + ParseUser.getCurrentUser().get("lastName").toString());
+        //lastname_tv = (TextView) view.findViewById(R.id.last_tv);
+        //lastname_tv.setText(ParseUser.getCurrentUser().get("lastName").toString());
         phone_tv = (TextView) view.findViewById(R.id.phone_tv);
-        phone_tv.setText("Phone: " + ParseUser.getCurrentUser().get("phoneNum").toString());
+        phone_tv.setText(ParseUser.getCurrentUser().get("phoneNum").toString() + "\n" +"Phone");
         bio_tv = (TextView) view.findViewById(R.id.bioBody_tv);
         bio_tv.setText(ParseUser.getCurrentUser().get("bio").toString());
         trips_iv = (TextView) view.findViewById(R.id.trips_tv);
-        trips_iv.setText("Trips Completed: " + Integer.toString(ParseUser.getCurrentUser().getInt("trips")));
+        trips_iv.setText(Integer.toString(ParseUser.getCurrentUser().getInt("trips")) + "\n" +"Trips Completed");
         prof_iv = (ImageView) view.findViewById(R.id.imageView3);
         ParseFile imageFile = (ParseFile) ParseUser.getCurrentUser().get("picture");
         imageFile.getDataInBackground(new GetDataCallback() {
