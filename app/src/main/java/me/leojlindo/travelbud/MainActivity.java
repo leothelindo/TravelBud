@@ -25,6 +25,8 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import me.leojlindo.travelbud.utils.ReplaceFont;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 .build());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ReplaceFont.replaceDefaultFont(this, "DEFAULT", "Roboto-Regular.ttf");
 
 
         // handle navigation selection

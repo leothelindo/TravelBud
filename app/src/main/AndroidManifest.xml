@@ -21,12 +21,15 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAc50yK2kTKR8hDwTjEgtqZRu4Q2IOjdi4" />
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
+        </activity>
+        <activity android:name=".LoginActivity">
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".SignUpActivity" />
