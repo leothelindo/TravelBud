@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="66dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="52dp"
             android:text="Trips Completed:"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/first_tv" />

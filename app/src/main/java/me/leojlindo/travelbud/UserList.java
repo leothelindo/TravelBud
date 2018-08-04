@@ -25,6 +25,7 @@ import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
@@ -43,6 +44,7 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
 
     /** The user. */
     public static ParseUser user = ParseUser.getCurrentUser();
+    ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
 
     Context context = this;
     private DrawerLayout mDrawerLayout;
@@ -183,7 +185,7 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
             TextView dist = (TextView) v.findViewById(R.id.shared_tv);
             dist.setText("Distance Shared: " + " miles");
             TextView lbl = (TextView) v.findViewById(R.id.big_tv);
-            lbl.setText(c.getUsername());
+            lbl.setText(c.get("firstName").toString());
             final ImageView prof = (ImageView) v.findViewById(R.id.imageView);
             ParseFile imageFile = (ParseFile) c.get("picture");
             imageFile.getDataInBackground(new GetDataCallback() {

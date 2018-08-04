@@ -19,28 +19,28 @@
         android:weightSum="3">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/walking_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Walking" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/public_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:text="Public" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/biking_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Biking" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/driving_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
