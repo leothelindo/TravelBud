@@ -61,7 +61,7 @@ public class AccountFragment extends Fragment {
         prof_iv = (ImageView) view.findViewById(R.id.imageView3);
         route = (ImageView) view.findViewById(R.id.your_route);
 
-        setUserImage();
+
 
 
         signOut_btn = (Button) view.findViewById(R.id.signOut_btn);
