@@ -26,12 +26,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/phone_tv"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:text="First"
+            android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <TextView
             android:id="@+id/phone_tv"
@@ -39,47 +43,43 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="52dp"
-            android:text="Trips Completed:"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/first_tv" />
-
-        <TextView
-            android:id="@+id/bio_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/message_btn"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="biography"
+            android:text="Trips Completed:"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/bioBody_tv" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView3"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="2dp"
             app:layout_constraintTop_toBottomOf="@+id/include"
             app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_000" />
 
         <TextView
             android:id="@+id/bioBody_tv"
             android:layout_width="wrap_content"
-            android:layout_height="23dp"
+            android:layout_height="wrap_content"
             android:layout_alignStart="@+id/bio_tv"
             android:layout_centerVertical="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="biography body"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bio_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/first_tv" />
 
         <Button
             android:id="@+id/message_btn"
@@ -87,13 +87,14 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/first_tv"
             android:layout_below="@+id/imageView3"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/appGreen"
             android:text="Send Message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bioBody_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/phone_tv" />
 
         <TextView
             android:id="@+id/textView"
@@ -107,6 +108,7 @@
             android:text="Shared Route"
             android:textColor="@color/black"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/message_btn" />
