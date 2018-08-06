@@ -1,5 +1,6 @@
 package me.leojlindo.travelbud;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -83,6 +85,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private Button goBtn;
     private Button friendsBtn;
     private Button clearBtn;
+    private Button walkingBtn;
+    private Button publicBtn;
+    private Button bikingBtn;
+    private Button drivingBtn;
+
 
     //variables
     private boolean mLocationPermissionsGranted = false;
@@ -112,6 +119,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         goBtn = view.findViewById(R.id.go_btn);
         friendsBtn = view.findViewById(R.id.friends_btn);
         clearBtn = view.findViewById(R.id.clear_btn);
+        walkingBtn = view.findViewById(R.id.walking_btn);
+        publicBtn = view.findViewById(R.id.public_btn);
+        bikingBtn = view.findViewById(R.id.biking_btn);
+        drivingBtn = view.findViewById(R.id.driving_btn);
 
         LinearLayout bottomSheetViewGroup = (LinearLayout) view.findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottomSheetViewGroup);
@@ -123,6 +134,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         //when go button is clicked it draws the route
                 goBtn.setOnClickListener(new View.OnClickListener()
                 {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public void onClick(View v)
                     {
@@ -135,7 +147,24 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                             sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         }
 
-                //when find friends button is clicked
+
+                        //user picking different transportation methods
+                        walkingBtn.setOnTouchListener(new View.OnTouchListener() {
+
+                            @Override
+                            public boolean onTouch(View view, MotionEvent event) {
+                                if(event.getAction() == MotionEvent.ACTION_UP) {
+                                    walkingBtn.setBackgroundColor(getResources().getColor(R.color.main_color_gray));
+                                } else if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                                    walkingBtn.setBackgroundColor(getResources().getColor(R.color.white));
+                                }
+                                return false;
+                            }
+
+                        });
+
+
+                        //when find friends button is clicked
                 friendsBtn.setOnClickListener(new View.OnClickListener()
                 {
                     @Override

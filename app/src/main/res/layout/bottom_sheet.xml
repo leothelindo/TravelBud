@@ -17,9 +17,9 @@
         android:layout_gravity="center_vertical"
         android:orientation="horizontal"
         android:weightSum="3">
-
+      
         <ToggleButton
-            android:id="@+id/button2"
+            android:id="@+id/walking_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -30,7 +30,7 @@
             android:background="@drawable/my_btn_toggle"/>
 
         <ToggleButton
-            android:id="@+id/button3"
+            android:id="@+id/public_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/my_btn_toggle"
@@ -38,8 +38,8 @@
             android:textOff="Public"
             android:textOn="Public" />
 
-        <ToggleButton
-            android:id="@+id/button4"
+        <ToggleButton      
+            android:text="Public" />
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -48,8 +48,8 @@
             android:textOff="Biking"
             android:textOn="Biking" />
 
-        <ToggleButton
-            android:id="@+id/button5"
+        <ToggleButton         
+            android:id="@+id/driving_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
