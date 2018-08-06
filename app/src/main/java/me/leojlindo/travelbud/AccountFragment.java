@@ -58,8 +58,8 @@ public class AccountFragment extends Fragment {
         route = (ImageView) view.findViewById(R.id.your_route);
 
         //showing users route
-        ParseFile routeFile = (ParseFile) ParseUser.getCurrentUser().get("your_route");
-        routeFile.getDataInBackground(new GetDataCallback() {
+        ParseFile yourRouteFile = (ParseFile) ParseUser.getCurrentUser().get("your");
+        yourRouteFile.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] data, ParseException e) {
                 Bitmap bitmap1 = BitmapFactory.decodeByteArray(data, 0, data.length);
