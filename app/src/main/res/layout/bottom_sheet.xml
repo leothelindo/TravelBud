@@ -17,34 +17,46 @@
         android:layout_gravity="center_vertical"
         android:orientation="horizontal"
         android:weightSum="3">
-
-        <Button
+      
+        <ToggleButton
             android:id="@+id/walking_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Walking" />
+            android:text="Walking"
+            android:color="@color/colorPrimaryDark"
+            android:textOff="Walking"
+            android:textOn="Walking"
+            android:background="@drawable/my_btn_toggle"/>
 
-        <Button
+        <ToggleButton
             android:id="@+id/public_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/my_btn_toggle"
+            android:text="Public"
+            android:textOff="Public"
+            android:textOn="Public" />
 
+        <ToggleButton      
             android:text="Public" />
-
-        <Button
-            android:id="@+id/biking_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Biking" />
+            android:background="@drawable/my_btn_toggle"
+            android:text="Biking"
+            android:textOff="Biking"
+            android:textOn="Biking" />
 
-        <Button
+        <ToggleButton         
             android:id="@+id/driving_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="driving" />
+            android:background="@drawable/my_btn_toggle"
+            android:text="driving"
+            android:textOff="Driving"
+            android:textOn="Driving" />
 
     </LinearLayout>
 
