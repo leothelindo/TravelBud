@@ -62,7 +62,7 @@ public class AccountFragment extends Fragment {
         route = (ImageView) view.findViewById(R.id.your_route);
 
 
-
+        setUserImage();
 
         signOut_btn = (Button) view.findViewById(R.id.signOut_btn);
         signOut_btn.setOnClickListener(new View.OnClickListener() {
