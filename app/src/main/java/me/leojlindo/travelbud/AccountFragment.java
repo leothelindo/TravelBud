@@ -27,6 +27,9 @@ public class AccountFragment extends Fragment {
     TextView bio_tv;
     ImageView prof_iv;
     TextView trips_iv;
+    ImageView route;
+    ParseFile routeFile;
+    String buddy;
 
 
     //onCreateView method is called when Fragment should create its View object hierarchy,
@@ -52,6 +55,18 @@ public class AccountFragment extends Fragment {
         trips_iv = (TextView) view.findViewById(R.id.trips_tv);
         trips_iv.setText(Integer.toString(ParseUser.getCurrentUser().getInt("trips")) + "\n" +"Trips Completed");
         prof_iv = (ImageView) view.findViewById(R.id.imageView3);
+        route = (ImageView) view.findViewById(R.id.your_route);
+
+        //showing users route
+        ParseFile routeFile = (ParseFile) ParseUser.getCurrentUser().get("your_route");
+        routeFile.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+                Bitmap bitmap1 = BitmapFactory.decodeByteArray(data, 0, data.length);
+                route.setImageBitmap(bitmap1);
+            }
+        });
+
         ParseFile imageFile = (ParseFile) ParseUser.getCurrentUser().get("picture");
         imageFile.getDataInBackground(new GetDataCallback() {
             @Override
