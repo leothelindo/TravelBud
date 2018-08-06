@@ -38,13 +38,13 @@
             android:textOff="Public"
             android:textOn="Public" />
 
-        <ToggleButton      
-            android:text="Public" />
+        <ToggleButton
+            android:id="@+id/biking_btn"
+            android:text="Biking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/my_btn_toggle"
-            android:text="Biking"
             android:textOff="Biking"
             android:textOn="Biking" />
 
