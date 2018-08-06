@@ -13,10 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.GetDataCallback;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 public class AccountFragment extends Fragment {
 
@@ -29,6 +32,7 @@ public class AccountFragment extends Fragment {
     TextView trips_iv;
     ImageView route;
     ParseFile routeFile;
+    ParseFile imageFile;
     String buddy;
 
 
@@ -57,25 +61,7 @@ public class AccountFragment extends Fragment {
         prof_iv = (ImageView) view.findViewById(R.id.imageView3);
         route = (ImageView) view.findViewById(R.id.your_route);
 
-        //showing users route
-        ParseFile routeFile = (ParseFile) ParseUser.getCurrentUser().get("your_route");
-        routeFile.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] data, ParseException e) {
-                Bitmap bitmap1 = BitmapFactory.decodeByteArray(data, 0, data.length);
-                route.setImageBitmap(bitmap1);
-            }
-        });
-
-        ParseFile imageFile = (ParseFile) ParseUser.getCurrentUser().get("picture");
-        imageFile.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] data, ParseException e) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                prof_iv.setImageBitmap(bitmap);
-            }
-        });
-
+        setUserImage();
 
 
         signOut_btn = (Button) view.findViewById(R.id.signOut_btn);
@@ -93,6 +79,31 @@ public class AccountFragment extends Fragment {
                 Toast.makeText(getContext(),"Logged Out",  Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void setUserImage(){
+        //showing users route
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.whereEqualTo("username", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<ParseUser>() {
+            public void done(List<ParseUser> objects, ParseException e) {
+                if (e == null) {
+                    try {
+                        imageFile = objects.get(0).getParseFile("picture");
+                        Bitmap bmp = BitmapFactory.decodeStream(imageFile.getDataStream());
+                        prof_iv.setImageBitmap(bmp);
+
+                        //adding the users shared route
+                        routeFile = objects.get(0).getParseFile("route");
+                        Bitmap bmp2 = BitmapFactory.decodeStream(routeFile.getDataStream());
+                        route.setImageBitmap(bmp2);
+                    } catch (Exception a) {
+                        a.printStackTrace();
+                    }
+                }
+            }
+        });
+
     }
 
 
