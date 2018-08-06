@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Walking"
-            android:color="@color/colorPrimaryDark"
             android:textOff="Walking"
             android:textOn="Walking"
             android:background="@drawable/my_btn_toggle"/>
