@@ -2,6 +2,8 @@ package me.leojlindo.travelbud;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,16 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import me.leojlindo.travelbud.utils.Const;
@@ -45,6 +53,8 @@ public class MessageFragment extends Fragment{
     public ParseUser loader;
 
     ParseQuery query = ParseUser.getQuery();
+
+    private Date lastMsgDate;
 
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
@@ -182,11 +192,42 @@ public class MessageFragment extends Fragment{
                 v = getLayoutInflater().inflate(R.layout.chat_item, null);
 
             ParseUser c = getItem(pos);
-            TextView lbl = (TextView) v;
+            TextView lbl = (TextView) v.findViewById(R.id.user_info);
             lbl.setText(c.getUsername());
+            final ImageView prof = (ImageView) v.findViewById(R.id.prof_chat);
+            ParseFile imageFile = (ParseFile) c.get("picture");
+            imageFile.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] data, ParseException e) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 0, byteArrayOutputStream);
+                    prof.setImageBitmap(bitmap);
+                }
+            });
             lbl.setCompoundDrawablesWithIntrinsicBounds(
                     c.getBoolean("online") ? R.drawable.ic_online
                             : R.drawable.ic_offline, 0, R.drawable.arrow, 0);
+
+            ParseQuery<ParseObject> q = ParseQuery.getQuery("Chat");
+            if (lastMsgDate != null)
+                q.whereGreaterThan("createdAt", lastMsgDate);
+            q.whereEqualTo("sender", c.getUsername());
+            q.whereEqualTo("receiver", MessageFragment.user.getUsername());
+            TextView message = (TextView) v.findViewById(R.id.textView3);
+            q.orderByDescending("createdAt");
+            ParseQuery<ParseObject> a = ParseQuery.getQuery("Chat");
+            if (lastMsgDate != null)
+                a.whereGreaterThan("createdAt", lastMsgDate);
+            a.whereEqualTo("sender", MessageFragment.user.getUsername());
+            a.whereEqualTo("receiver", c.getUsername());
+            a.orderByDescending("createdAt");
+            q.orderByDescending("createdAt");
+            try {
+                message.setText(q.getFirst().get("sender").toString() + ":   " + q.getFirst().get("message").toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             return v;
         }
