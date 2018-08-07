@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,8 @@ public class MessageFragment extends Fragment{
     ParseQuery query = ParseUser.getQuery();
 
     private Date lastMsgDate;
+
+    private Date msgDate;
 
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
@@ -191,8 +194,10 @@ public class MessageFragment extends Fragment{
             if (v == null)
                 v = getLayoutInflater().inflate(R.layout.chat_item, null);
 
+
             ParseUser c = getItem(pos);
             TextView lbl = (TextView) v.findViewById(R.id.user_info);
+            ImageView online = (ImageView) v.findViewById(R.id.online);
             lbl.setText(c.getUsername());
             final ImageView prof = (ImageView) v.findViewById(R.id.prof_chat);
             ParseFile imageFile = (ParseFile) c.get("picture");
@@ -205,9 +210,11 @@ public class MessageFragment extends Fragment{
                     prof.setImageBitmap(bitmap);
                 }
             });
-            lbl.setCompoundDrawablesWithIntrinsicBounds(
-                    c.getBoolean("online") ? R.drawable.ic_online
-                            : R.drawable.ic_offline, 0, R.drawable.arrow, 0);
+            Bitmap bMap = BitmapFactory.decodeResource(getResources(), c.getBoolean("online") ? R.drawable.ic_online
+                    : R.drawable.ic_offline);
+            Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 10, 10, true);
+            online.setImageBitmap(bMapScaled);
+
 
             ParseQuery<ParseObject> q = ParseQuery.getQuery("Chat");
             if (lastMsgDate != null)
@@ -216,12 +223,12 @@ public class MessageFragment extends Fragment{
             q.whereEqualTo("receiver", MessageFragment.user.getUsername());
             TextView message = (TextView) v.findViewById(R.id.textView3);
             q.orderByDescending("createdAt");
-            ParseQuery<ParseObject> a = ParseQuery.getQuery("Chat");
+            /*ParseQuery<ParseObject> a = ParseQuery.getQuery("Chat");
             if (lastMsgDate != null)
                 a.whereGreaterThan("createdAt", lastMsgDate);
             a.whereEqualTo("sender", MessageFragment.user.getUsername());
             a.whereEqualTo("receiver", c.getUsername());
-            a.orderByDescending("createdAt");
+            a.orderByDescending("createdAt");*/
             q.orderByDescending("createdAt");
             try {
                 message.setText(q.getFirst().get("sender").toString() + ":   " + q.getFirst().get("message").toString());
@@ -229,6 +236,18 @@ public class MessageFragment extends Fragment{
                 e.printStackTrace();
             }
 
+            try {
+                msgDate = q.getFirst().getCreatedAt();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+            TextView lbl1 = (TextView) v.findViewById(R.id.date);
+            lbl1.setText(DateUtils.getRelativeDateTimeString(getContext(),
+                    msgDate.getTime(),
+                    DateUtils.DAY_IN_MILLIS,
+                    DateUtils.DAY_IN_MILLIS, 0));
             return v;
         }
 
