@@ -51,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
         lastnameInput = findViewById(R.id.lastname_tv);
         usernameInput = findViewById(R.id.user_tv);
         emailInput = findViewById(R.id.email_tv);
-        phoneInput = findViewById(R.id.phone_tv);
+        phoneInput = findViewById(R.id.trips_tv);
         passwordInput = findViewById(R.id.password_tv);
         signupBtn = findViewById(R.id.Sign_up_btn);
         photoBtn = findViewById(R.id.photo_btn);
@@ -113,7 +113,7 @@ public class SignUpActivity extends AppCompatActivity {
         lastnameInput = findViewById(R.id.lastname_tv);
         usernameInput = findViewById(R.id.user_tv);
         emailInput = findViewById(R.id.email_tv);
-        phoneInput = findViewById(R.id.phone_tv);
+        phoneInput = findViewById(R.id.trips_tv);
         passwordInput = findViewById(R.id.password_tv);
         signupBtn = findViewById(R.id.Sign_up_btn);
 
