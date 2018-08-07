@@ -13,13 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import java.util.List;
 
 public class AccountFragment extends Fragment {
 
@@ -63,6 +60,7 @@ public class AccountFragment extends Fragment {
 
 
         setUserImage();
+        setUserRoute();
 
         signOut_btn = (Button) view.findViewById(R.id.signOut_btn);
         signOut_btn.setOnClickListener(new View.OnClickListener() {
@@ -81,26 +79,23 @@ public class AccountFragment extends Fragment {
         });
     }
 
-    public void setUserImage(){
-        //showing users route
-        ParseQuery<ParseUser> query = ParseUser.getQuery();
-        query.whereEqualTo("username", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<ParseUser>() {
-            public void done(List<ParseUser> objects, ParseException e) {
-                if (e == null) {
-                    try {
-                        imageFile = objects.get(0).getParseFile("picture");
-                        Bitmap bmp = BitmapFactory.decodeStream(imageFile.getDataStream());
-                        prof_iv.setImageBitmap(bmp);
-
-                        //adding the users shared route
-                        routeFile = objects.get(0).getParseFile("route");
-                        Bitmap bmp2 = BitmapFactory.decodeStream(routeFile.getDataStream());
-                        route.setImageBitmap(bmp2);
-                    } catch (Exception a) {
-                        a.printStackTrace();
-                    }
-                }
+    public void setUserImage() {
+        ParseFile imageFile = (ParseFile) ParseUser.getCurrentUser().get("picture");
+        imageFile.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                prof_iv.setImageBitmap(bitmap);
+            }
+        });
+    }
+    public void setUserRoute(){
+        ParseFile routeFile = (ParseFile) ParseUser.getCurrentUser().get("route");
+        routeFile.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                route.setImageBitmap(bitmap);
             }
         });
 
