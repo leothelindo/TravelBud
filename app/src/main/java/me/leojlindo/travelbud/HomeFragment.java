@@ -43,6 +43,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -100,6 +101,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     float[] results = new float[1];
     float resultOne;
     private List<LatLng> lstLatLngRoute = new ArrayList<LatLng>();
+    Boolean isStartLocation = true;
+    Boolean isEndLocation = false;
 
     //bottom sheet
     LinearLayout layoutBottomSheet;
@@ -121,6 +124,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         sheetBehavior.setPeekHeight(0);
 
         getLocationPermission();
+
 
         //when go button is clicked it draws the route
                 goBtn.setOnClickListener(new View.OnClickListener()
@@ -390,6 +394,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                         .title(placeInfo.getName())
                         .snippet(snippet);
                 marker = mMap.addMarker(options);
+                //setting marker icons for if its the start or end location
+                if (isStartLocation) {
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_trip_origin_black_18dp));
+                    isStartLocation = false;
+                } else {
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_black_18dp));
+                }
+
             } catch (NullPointerException e) {
                 Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage());
             }
@@ -476,6 +488,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
             if (isStart) {
                 latlngOne = new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude);
+                //isStartLocation = true;
                 isStart = false;
             } else {
                 latlngTwo = new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude);
