@@ -4,24 +4,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="120dp">
+    android:layout_height="110dp">
 
     <TextView
         android:id="@+id/user_info"
-        android:layout_width="269dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:drawableLeft="@drawable/ic_online"
-        android:drawablePadding="@dimen/pad_10dp"
-        android:drawableTint="@color/appGreen"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        android:padding="@dimen/pad_10dp"
         android:text="TextView"
         android:textColor="@color/appOrange"
         android:textSize="@dimen/txt_18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/prof_chat" />
+        app:layout_constraintStart_toEndOf="@+id/prof_chat"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/prof_chat"
@@ -30,7 +29,7 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="39dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,12 +41,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="40dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:text="Message"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/prof_chat"
         app:layout_constraintTop_toBottomOf="@+id/user_info" />
+
+    <ImageView
+        android:id="@+id/online"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@+id/prof_chat"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_online" />
 
 </android.support.constraint.ConstraintLayout>

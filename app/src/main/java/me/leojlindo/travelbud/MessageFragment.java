@@ -193,6 +193,7 @@ public class MessageFragment extends Fragment{
 
             ParseUser c = getItem(pos);
             TextView lbl = (TextView) v.findViewById(R.id.user_info);
+            ImageView online = (ImageView) v.findViewById(R.id.online);
             lbl.setText(c.getUsername());
             final ImageView prof = (ImageView) v.findViewById(R.id.prof_chat);
             ParseFile imageFile = (ParseFile) c.get("picture");
@@ -205,9 +206,10 @@ public class MessageFragment extends Fragment{
                     prof.setImageBitmap(bitmap);
                 }
             });
-            lbl.setCompoundDrawablesWithIntrinsicBounds(
-                    c.getBoolean("online") ? R.drawable.ic_online
-                            : R.drawable.ic_offline, 0, R.drawable.arrow, 0);
+            Bitmap bMap = BitmapFactory.decodeResource(getResources(), c.getBoolean("online") ? R.drawable.ic_online
+                    : R.drawable.ic_offline);
+            Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 10, 10, true);
+            online.setImageBitmap(bMapScaled);
 
             ParseQuery<ParseObject> q = ParseQuery.getQuery("Chat");
             if (lastMsgDate != null)
