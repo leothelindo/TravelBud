@@ -47,6 +47,7 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
     ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
 
     Context context = this;
+    TextView buddy;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
@@ -58,6 +59,8 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+        buddy = (TextView) findViewById(R.id.buddy_tv);
+        buddy.setText("Found Users");
         loadUserList();
 
     }
