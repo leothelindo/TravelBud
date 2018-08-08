@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <item>
-        <bitmap android:src="@drawable/outline_help_outline_black_48"
-            android:gravity="center" />
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+    <item>
+        <bitmap android:src="@drawable/logo_round_small"
+            android:background="@color/colorPrimary"
+            android:gravity="center"/>
     </item>
 
-</selector>
+</layer-list>

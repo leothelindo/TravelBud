@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.nav_bar);
         //mToolbar.setBackground(new ColorDrawable(Color.TRANSPARENT));
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("");
 
         // finding the drawer from the xml
         mDrawerLayout= (DrawerLayout) findViewById(R.id.drawer);

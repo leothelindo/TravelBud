@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CONNEKT</string>
+    <string name="app_name">ConneKt</string>
     <!-- added next two strings for the Action Bar -->
     <string name="open">Open</string>
     <string name="close">Close</string>
