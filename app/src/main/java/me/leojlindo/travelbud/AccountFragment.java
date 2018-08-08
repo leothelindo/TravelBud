@@ -31,6 +31,7 @@ public class AccountFragment extends Fragment {
     ParseFile routeFile;
     ParseFile imageFile;
     String buddy;
+    Button completed_btn;
 
 
     //onCreateView method is called when Fragment should create its View object hierarchy,
@@ -57,6 +58,8 @@ public class AccountFragment extends Fragment {
         trips_iv.setText(Integer.toString(ParseUser.getCurrentUser().getInt("trips")) + "\n" +"Trips Completed");
         prof_iv = (ImageView) view.findViewById(R.id.imageView3);
         route = (ImageView) view.findViewById(R.id.your_route);
+        completed_btn=(Button) view.findViewById(R.id.complete_btn);
+        //completed_btn.set
 
 
         setUserImage();
