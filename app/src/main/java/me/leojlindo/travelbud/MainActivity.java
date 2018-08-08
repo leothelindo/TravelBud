@@ -17,8 +17,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.parse.GetDataCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -39,15 +37,11 @@ public class MainActivity extends AppCompatActivity {
     Fragment settingFragment = new SettingFragment();
     Fragment messageFragment = new MessageFragment();
 
+
+
     TextView firstname_tv;
     TextView lastname_tv;
     ImageView prof_iv;
-
-    /** The Firebase database */
-    private FirebaseDatabase database;
-
-    /** Firebase Authentication component */
-    private FirebaseAuth firebaseAuth;
 
 
     @Override
@@ -60,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 .build());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // handle navigation selection
         navigationView = (NavigationView) findViewById(R.id.navigation_toolbar);
