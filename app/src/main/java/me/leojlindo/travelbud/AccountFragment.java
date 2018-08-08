@@ -51,7 +51,7 @@ public class AccountFragment extends Fragment {
         //lastname_tv = (TextView) view.findViewById(R.id.last_tv);
         //lastname_tv.setText(ParseUser.getCurrentUser().get("lastName").toString());
         phone_tv = (TextView) view.findViewById(R.id.phone_tv);
-        phone_tv.setText(ParseUser.getCurrentUser().get("phoneNum").toString() + "\n" +"Phone");
+        phone_tv.setText(ParseUser.getCurrentUser().get("phoneNum").toString());
         bio_tv = (TextView) view.findViewById(R.id.bioBody_tv);
         bio_tv.setText(ParseUser.getCurrentUser().get("bio").toString());
         trips_iv = (TextView) view.findViewById(R.id.trips_tv);
