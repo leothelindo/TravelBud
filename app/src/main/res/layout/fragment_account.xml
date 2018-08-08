@@ -27,15 +27,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textView2"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/roundedbutton"
         android:backgroundTint="@color/transparent"
         android:text="Sign Out"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/your_route" />
+        app:layout_constraintTop_toBottomOf="@+id/complete_btn" />
 
     <View
         android:id="@+id/view"
@@ -198,6 +196,18 @@
         android:text="11.2 Miles"
         app:layout_constraintBottom_toTopOf="@+id/distance_tv"
         app:layout_constraintStart_toEndOf="@+id/distance_tv" />
+
+    <Button
+        android:id="@+id/complete_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/your_route" />
 
 
 </android.support.constraint.ConstraintLayout>
