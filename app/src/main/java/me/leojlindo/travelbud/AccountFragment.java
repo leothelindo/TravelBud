@@ -62,8 +62,6 @@ public class AccountFragment extends Fragment {
         prof_iv = (ImageView) view.findViewById(R.id.imageView3);
         route = (ImageView) view.findViewById(R.id.your_route);
         completed_btn=(Button) view.findViewById(R.id.complete_btn);
-        //completed_btn.set
-
 
         setUserImage();
         setUserRoute();
@@ -83,6 +81,36 @@ public class AccountFragment extends Fragment {
                 Toast.makeText(getContext(),"Logged Out",  Toast.LENGTH_LONG).show();
             }
         });
+        completed_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                //currentUser.put("route", );
+                currentUser.put("trips", Integer.parseInt(currentUser.get("trips").toString()) + 1);
+
+                /*
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.banner_2);
+                // Convert it to byte
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Compress image to lower quality scale 1 - 100
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+
+
+                ParseFile file = new ParseFile("route1.png", image);
+                currentUser.put("route", file);
+                currentUser.saveInBackground();
+                */
+
+                getFragmentManager().beginTransaction().detach(AccountFragment.this).attach(AccountFragment.this).commit();
+
+
+            }
+        });
+
+
     }
 
     public void setUserImage() {
