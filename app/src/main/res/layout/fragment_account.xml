@@ -183,7 +183,6 @@
         android:layout_alignStart="@+id/first_tv"
         android:layout_marginStart="212dp"
         android:layout_marginTop="16dp"
-        android:text="distance traveled"
         android:textAlignment="center"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"

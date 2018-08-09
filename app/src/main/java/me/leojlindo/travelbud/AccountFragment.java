@@ -25,6 +25,7 @@ public class AccountFragment extends Fragment {
     TextView lastname_tv;
     TextView phone_tv;
     TextView bio_tv;
+    TextView distance_tv;
     ImageView prof_iv;
     TextView trips_iv;
     ImageView route;
@@ -56,6 +57,8 @@ public class AccountFragment extends Fragment {
         bio_tv.setText(ParseUser.getCurrentUser().get("bio").toString());
         trips_iv = (TextView) view.findViewById(R.id.trips_tv);
         trips_iv.setText(Integer.toString(ParseUser.getCurrentUser().getInt("trips")) + "\n" +"Trips Completed");
+        distance_tv = (TextView) view.findViewById(R.id.distance_tv);
+        distance_tv.setText(Integer.toString(ParseUser.getCurrentUser().getInt("totalDistance")) + "\n" +"distance traveled");
         prof_iv = (ImageView) view.findViewById(R.id.imageView3);
         route = (ImageView) view.findViewById(R.id.your_route);
         completed_btn=(Button) view.findViewById(R.id.complete_btn);
