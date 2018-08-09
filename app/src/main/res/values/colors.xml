@@ -3,7 +3,7 @@
     <color name="colorPrimary">#4aaecc</color> <!--#4aaecc #ffd176  #2b4a99-->
     <color name="colorPrimaryDark">#007f9b</color><!--#f7a231 -->
     <color name="colorAccent">#ffd176</color>
-    <color name="lightBlue">#00bcc1</color>
+    <color name="lightBlue">#81e0ff</color>
     <color name="appOrange">#4aaecc</color> <!--#ef5722 -->
     <color name="appGreen">#0ead84</color>
     <color name="appYellow">#ffd176</color>
