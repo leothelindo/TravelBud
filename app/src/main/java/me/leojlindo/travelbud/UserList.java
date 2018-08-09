@@ -70,7 +70,9 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
         final ProgressDialog dia = ProgressDialog.show(this, null,
                 getString(R.string.alert_loading));
 
-        ParseUser.getQuery().whereNotEqualTo("username", user.getUsername())
+        userQuery = userQuery.orderByDescending("distance");
+
+        userQuery.whereNotEqualTo("username", user.getUsername())
                 .findInBackground(new FindCallback<ParseUser>() {
 
                     @Override
@@ -186,7 +188,7 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
             TextView num = (TextView) v.findViewById(R.id.num_tv);
             num.setText("Completed Trips: " + c.get("trips").toString());
             TextView dist = (TextView) v.findViewById(R.id.shared_tv);
-            dist.setText("Distance Shared: " + " miles");
+            dist.setText("Distance Shared: " + Double.toString(c.getDouble("distance")) + " miles");
             TextView lbl = (TextView) v.findViewById(R.id.big_tv);
             lbl.setText(c.get("firstName").toString());
             final ImageView prof = (ImageView) v.findViewById(R.id.imageView);

@@ -56,9 +56,9 @@ public class AccountFragment extends Fragment {
         bio_tv = (TextView) view.findViewById(R.id.bioBody_tv);
         bio_tv.setText(ParseUser.getCurrentUser().get("bio").toString());
         trips_iv = (TextView) view.findViewById(R.id.trips_tv);
-        trips_iv.setText(Integer.toString(ParseUser.getCurrentUser().getInt("trips")) + "\n" +"Trips Completed");
+        trips_iv.setText(Integer.toString(ParseUser.getCurrentUser().getInt("trips")) +"\n" +"Trips Completed");
         distance_tv = (TextView) view.findViewById(R.id.distance_tv);
-        distance_tv.setText(Integer.toString(ParseUser.getCurrentUser().getInt("totalDistance")) + "\n" +"distance traveled");
+        distance_tv.setText(Double.toString(ParseUser.getCurrentUser().getDouble("distanceTotal")) + " miles" + "\n" +"distance traveled");
         prof_iv = (ImageView) view.findViewById(R.id.imageView3);
         route = (ImageView) view.findViewById(R.id.your_route);
         completed_btn=(Button) view.findViewById(R.id.complete_btn);
@@ -88,6 +88,7 @@ public class AccountFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 //currentUser.put("route", );
                 currentUser.put("trips", Integer.parseInt(currentUser.get("trips").toString()) + 1);
+                currentUser.put("distanceTotal", Integer.parseInt(currentUser.get("distanceTotal").toString()) + .8);
 
                 /*
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
