@@ -609,8 +609,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> routes) {
-            ArrayList<LatLng> points = null;
-            PolylineOptions polyLineOptions = null;
+            ArrayList<LatLng> points = new ArrayList<LatLng>();
+            PolylineOptions polyLineOptions = new PolylineOptions();
 
             // traversing through routes
             for (int i = 0; i < routes.size(); i++) {
@@ -620,7 +620,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
                 for (int j = 0; j < path.size(); j++) {
                     HashMap<String, String> point = path.get(j);
-
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
                     LatLng position = new LatLng(lat, lng);
@@ -635,7 +634,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
             mMap.addPolyline(polyLineOptions);
 
-        }}
+        }
+        }
+
 
     public void getPath() {
             String url = getMapsApiDirectionsUrl(latlngOne, latlngTwo);
