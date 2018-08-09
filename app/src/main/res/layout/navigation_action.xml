@@ -9,6 +9,6 @@
         android:layout_width="224dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
-        android:src="@drawable/header" />
+        android:src="@drawable/banner_2" />
 
 </android.support.v7.widget.Toolbar>
