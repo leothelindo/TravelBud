@@ -116,7 +116,6 @@ public class Chat extends CustomActivity
         title = (TextView) findViewById(R.id.buddy_tv);
         title.setText(buddy);
 
-        back = (Button) findViewById(R.id.back);
         /*back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent i = new Intent(Chat.this, MessageFragment.class);

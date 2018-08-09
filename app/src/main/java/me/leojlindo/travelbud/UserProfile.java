@@ -59,7 +59,6 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        back = (Button) findViewById(R.id.back);
         buddy = getIntent().getStringExtra(Const.EXTRA_DATA);
         first = (TextView) findViewById(R.id.first_tv);
         first.setText(buddy);
