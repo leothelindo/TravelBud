@@ -86,9 +86,11 @@ public class AccountFragment extends Fragment {
             public void onClick(View view) {
 
                 ParseUser currentUser = ParseUser.getCurrentUser();
+                Double ans = currentUser.getDouble("distanceTotal");
+                String also = ans.toString();
                 //currentUser.put("route", );
                 currentUser.put("trips", Integer.parseInt(currentUser.get("trips").toString()) + 1);
-                currentUser.put("distanceTotal", (Double.parseDouble(currentUser.get("distanceTotal").toString()) + .8));
+                currentUser.put("distanceTotal", ans + 0.8);
 
                 /*
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
@@ -102,8 +104,10 @@ public class AccountFragment extends Fragment {
 
                 ParseFile file = new ParseFile("route1.png", image);
                 currentUser.put("route", file);
-                currentUser.saveInBackground();
                 */
+
+                currentUser.saveInBackground();
+
 
                 getFragmentManager().beginTransaction().detach(AccountFragment.this).attach(AccountFragment.this).commit();
 
