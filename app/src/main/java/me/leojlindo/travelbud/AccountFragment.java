@@ -88,7 +88,7 @@ public class AccountFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 //currentUser.put("route", );
                 currentUser.put("trips", Integer.parseInt(currentUser.get("trips").toString()) + 1);
-                currentUser.put("distanceTotal", (Double.parseDouble(currentUser.get("distanceTotal").toString()) + .8));
+                 currentUser.put("distanceTotal", (Double.parseDouble(currentUser.get("distanceTotal").toString()) + .8));
 
                 /*
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
