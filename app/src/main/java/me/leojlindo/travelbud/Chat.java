@@ -116,7 +116,6 @@ public class Chat extends CustomActivity
         title = (TextView) findViewById(R.id.buddy_tv);
         title.setText(buddy);
 
-
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 
 

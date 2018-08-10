@@ -9,8 +9,8 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/appOrange"
-        android:dividerHeight="1dp"
+        android:divider="@color/main_color_gray_lt"
+        android:dividerHeight=".5dp"
         tools:listitem="@layout/chat_item" >
     </ListView>
 
