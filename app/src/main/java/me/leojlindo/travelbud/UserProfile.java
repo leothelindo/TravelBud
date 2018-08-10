@@ -70,15 +70,6 @@ public class UserProfile extends AppCompatActivity {
         msg_btn = (Button) findViewById(R.id.message_btn);
         sharedRoute = (ImageView) findViewById(R.id.shared_image);
 
-
-
-        back.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent i = new Intent(UserProfile.this, UserList.class);
-                startActivity(i);
-            }
-        });
-
         userQuery.whereEqualTo("username", buddy);
         userQuery.findInBackground(new FindCallback<ParseUser>() {
             public void done(List<ParseUser> username, ParseException e) {
