@@ -97,6 +97,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
     private Marker marker;
+    private Marker marker_2;
     private LatLng latlngOne;
     private LatLng latlngTwo;
     private boolean isStart = true;
@@ -105,6 +106,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private List<LatLng> lstLatLngRoute = new ArrayList<LatLng>();
     Boolean isStartLocation = true;
     Boolean isEndLocation = false;
+    int counter = 0;
+    MarkerOptions options = new MarkerOptions();
+    MarkerOptions options_2 = new MarkerOptions();
 
     //bottom sheet
     LinearLayout layoutBottomSheet;
@@ -395,7 +399,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
     private void moveCamera(LatLng latLng, float zoom, PlaceInfo placeInfo) {
         Log.d(TAG, "moveCamera: moving the camera to: latitude: " + latLng.latitude + ", longitude: " + latLng.longitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
 
         //first clear all markers on map
         mMap.clear();
@@ -406,17 +411,27 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                 String snippet = "Address: " + placeInfo.getAddress() + "\n" +
                         "Phone Number: " + placeInfo.getPhoneNumber() + "\n";
 
-                MarkerOptions options = new MarkerOptions()
-                        .position(latLng)
-                        .title(placeInfo.getName())
-                        .snippet(snippet);
-                marker = mMap.addMarker(options);
-                //setting marker icons for if its the start or end location
-                if (isStartLocation) {
+                if(counter == 0){
+
+                    options.position(latLng)
+                            .title(placeInfo.getName())
+                            .snippet(snippet);
+                    marker = mMap.addMarker(options);
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_trip_origin_black_18dp));
-                    isStartLocation = false;
-                } else {
-                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_black_18dp));
+                    counter++;
+                }
+                else{
+
+                    options_2.position(latLng)
+                            .title(placeInfo.getName())
+                            .snippet(snippet);
+
+                    marker = mMap.addMarker(options);
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_trip_origin_black_18dp));
+
+                    marker_2 = mMap.addMarker(options_2);
+                    marker_2.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_place_black_18dp));
+
                 }
 
             } catch (NullPointerException e) {
@@ -434,10 +449,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if (!title.equals("My location")) {
-            MarkerOptions options = new MarkerOptions()
+            /*MarkerOptions options_2 = new MarkerOptions()
                     .position(latLng)
-                    .title(title);
+                    .title(title);*/
             mMap.addMarker(options);
+            mMap.addMarker(options_2);
         }
 
         hideSoftKeyboard();
@@ -659,7 +675,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         int routePadding = 450;
         LatLngBounds latLngBounds = boundsBuilder.build();
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding));
     }
 
 
