@@ -23,49 +23,49 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:background="@drawable/my_btn_toggle"
             android:drawableBottom="@drawable/outline_directions_walk_black_18"
+
+            android:paddingBottom="10dp"
             android:text="Walking"
             android:textOff="Walking"
             android:textOn="Walking"
-            android:paddingBottom="10dp"/>
+            android:background="@drawable/my_btn_toggle"/>
 
         <ToggleButton
             android:id="@+id/public_btn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:background="@drawable/my_btn_toggle"
             android:drawableBottom="@drawable/outline_train_black_18"
+            android:paddingBottom="10dp"
             android:text="Public"
             android:textOff="Public"
             android:textOn="Public"
-            android:paddingBottom="10dp"/>
+            android:background="@drawable/my_btn_toggle"
+            android:textColor="@drawable/my_btn_toggle"/>
 
         <ToggleButton
             android:id="@+id/biking_btn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:background="@drawable/my_btn_toggle"
             android:drawableBottom="@drawable/outline_directions_bike_black_18"
-
+            android:paddingBottom="10dp"
             android:text="Biking"
             android:textOff="Biking"
             android:textOn="Biking"
-            android:paddingBottom="10dp"/>
+            android:background="@drawable/my_btn_toggle"/>
 
         <ToggleButton
             android:id="@+id/driving_btn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:background="@drawable/my_btn_toggle"
             android:drawableBottom="@drawable/outline_directions_car_black_18"
-
+            android:paddingBottom="10dp"
             android:text="driving"
             android:textOff="Driving"
             android:textOn="Driving"
-            android:paddingBottom="10dp"/>
+            android:background="@drawable/my_btn_toggle"/>
 
     </LinearLayout>
 
@@ -73,7 +73,6 @@
         android:id="@+id/friends_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="@color/appGreen"
         android:foreground="?attr/selectableItemBackground"
         android:text="Find Friends"

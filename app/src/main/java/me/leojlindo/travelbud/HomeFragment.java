@@ -355,6 +355,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
+
         }
     }
 

@@ -18,6 +18,8 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
+
 public class AccountFragment extends Fragment {
 
     Button signOut_btn;
@@ -66,6 +68,7 @@ public class AccountFragment extends Fragment {
         setUserImage();
         setUserRoute();
 
+
         signOut_btn = (Button) view.findViewById(R.id.signOut_btn);
         signOut_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,12 +90,9 @@ public class AccountFragment extends Fragment {
 
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 //currentUser.put("route", );
-                currentUser.put("trips", Integer.parseInt(currentUser.get("trips").toString()) + 1);
-                 currentUser.put("distanceTotal", (Double.parseDouble(currentUser.get("distanceTotal").toString()) + .8));
 
-                /*
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                        R.drawable.banner_2);
+                        R.drawable.bg_white);
                 // Convert it to byte
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 // Compress image to lower quality scale 1 - 100
@@ -103,7 +103,12 @@ public class AccountFragment extends Fragment {
                 ParseFile file = new ParseFile("route1.png", image);
                 currentUser.put("route", file);
                 currentUser.saveInBackground();
-                */
+
+                currentUser.put("trips", Integer.parseInt(currentUser.get("trips").toString()) + 1);
+                currentUser.put("distanceTotal", (Double.parseDouble(currentUser.get("distanceTotal").toString()) + .8));
+
+                Toast.makeText(getContext(), "Trip Completed!", Toast.LENGTH_SHORT).show();
+
 
                 getFragmentManager().beginTransaction().detach(AccountFragment.this).attach(AccountFragment.this).commit();
 

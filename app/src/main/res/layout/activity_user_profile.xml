@@ -100,6 +100,8 @@
             android:backgroundTint="@color/appGreen"
             android:elevation="10dp"
             android:text="Connect"
+            android:textColor="@color/white"
+            android:textSize="24sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

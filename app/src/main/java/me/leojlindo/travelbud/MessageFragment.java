@@ -59,6 +59,7 @@ public class MessageFragment extends Fragment{
 
     private Date msgDate;
 
+
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
      */
@@ -229,7 +230,6 @@ public class MessageFragment extends Fragment{
             a.whereEqualTo("sender", MessageFragment.user.getUsername());
             a.whereEqualTo("receiver", c.getUsername());
             a.orderByDescending("createdAt");*/
-            q.orderByDescending("createdAt");
             try {
                 message.setText(q.getFirst().get("sender").toString() + ":   " + q.getFirst().get("message").toString());
             } catch (ParseException e) {
