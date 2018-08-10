@@ -152,6 +152,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                     public void onClick(View v)
                     {
                         startActivity(new Intent(getActivity(), UserList.class));
+
                     }
                 });
 
