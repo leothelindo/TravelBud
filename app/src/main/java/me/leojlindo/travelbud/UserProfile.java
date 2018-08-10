@@ -41,6 +41,7 @@ public class UserProfile extends AppCompatActivity {
     TextView first;
     TextView bio;
     TextView trips;
+    TextView time_leaving;
     String buddy;
     ImageView prof;
     Button msg_btn;
@@ -69,6 +70,7 @@ public class UserProfile extends AppCompatActivity {
         prof = (ImageView) findViewById(R.id.imageView3);
         msg_btn = (Button) findViewById(R.id.message_btn);
         sharedRoute = (ImageView) findViewById(R.id.shared_image);
+        time_leaving = (TextView) findViewById(R.id.time_leaving);
 
         userQuery.whereEqualTo("username", buddy);
         userQuery.findInBackground(new FindCallback<ParseUser>() {
@@ -101,6 +103,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
 
+        //information getting from parse
         try {
             bio.setText(userQuery.getFirst().get("bio").toString());
         } catch (ParseException e) {
@@ -109,6 +112,12 @@ public class UserProfile extends AppCompatActivity {
 
         try {
             trips.setText("Trips Completed: " + Integer.toString(userQuery.getFirst().getInt("trips")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            time_leaving.setText(userQuery.getFirst().get("timeLeaving").toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
