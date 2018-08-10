@@ -629,7 +629,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
                 polyLineOptions.addAll(points);
                 polyLineOptions.width(12);
-                polyLineOptions.color(getResources().getColor(R.color.appRed));
+                polyLineOptions.color(getResources().getColor(R.color.appGreen));
             }
 
             mMap.addPolyline(polyLineOptions);
