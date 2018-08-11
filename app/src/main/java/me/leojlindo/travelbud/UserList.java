@@ -53,8 +53,6 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
     private Toolbar mToolbar;
     NavigationView navigationView;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +60,8 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
         buddy = (TextView) findViewById(R.id.buddy_tv);
         buddy.setText("Found Users");
         loadUserList();
-
     }
+
 
     public void loadUserList() {
 

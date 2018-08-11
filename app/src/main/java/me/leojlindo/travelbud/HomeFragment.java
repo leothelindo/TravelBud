@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -28,6 +29,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -72,6 +74,8 @@ import static com.parse.Parse.getApplicationContext;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
+    TimePickerFragment timePickerFragment = new TimePickerFragment();
+
     private static final String TAG = "HomeFragment";
 
     private static final String FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -87,6 +91,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private Button goBtn;
     private Button friendsBtn;
     private Button clearBtn;
+    Button timeBtn;
 
 
     //variables
@@ -104,11 +109,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     float resultOne;
     private List<LatLng> lstLatLngRoute = new ArrayList<LatLng>();
     Boolean isStartLocation = true;
-    Boolean isEndLocation = false;
+    public TimePicker timePicker;
+    private int hour;
+    private int minute;
 
     //bottom sheet
     LinearLayout layoutBottomSheet;
     BottomSheetBehavior sheetBehavior;
+
 
     //onCreateView method is called when Fragment should create its View object hierarchy
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -119,6 +127,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
         goBtn = view.findViewById(R.id.go_btn);
         friendsBtn = view.findViewById(R.id.friends_btn);
         clearBtn = view.findViewById(R.id.clear_btn);
+        timeBtn = view.findViewById(R.id.time_btn);
 
         LinearLayout bottomSheetViewGroup = (LinearLayout) view.findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottomSheetViewGroup);
@@ -144,6 +153,18 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                             sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         }
 
+                        timeBtn.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                showTimePickerDialog(timePicker);
+                                timeBtn.setText(hour + ":" + minute);
+
+                            }
+                        });
+
+
 
                         //when find friends button is clicked
                 friendsBtn.setOnClickListener(new View.OnClickListener()
@@ -152,6 +173,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                     public void onClick(View v)
                     {
                         startActivity(new Intent(getActivity(), UserList.class));
+
                     }
                 });
 
@@ -173,10 +195,22 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
     }
 
+
+    public void addTime() {
+        int hour = timePicker.getCurrentHour();
+        int minute = timePicker.getCurrentMinute();
+        timeBtn.setText(hour + ":" + minute);
+    }
+
     // This is triggered soon after onCreateView()
     public void onViewCreated(View view, Bundle savedInstanceState) {
         //initializing everything after getting permission
         init();
+    }
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "timePicker");
     }
 
     //checking permissions
