@@ -33,7 +33,6 @@
         android:id="@+id/friends_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="@color/appGreen"
         android:foreground="?attr/selectableItemBackground"
         android:text="Find Friends"

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
     NavigationView navigationView;
+    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_user_list);
         buddy = (TextView) findViewById(R.id.buddy_tv);
         buddy.setText("Found Users");
+        add = (Button) findViewById(R.id.add_btn);
+        add.setVisibility(View.GONE);
         loadUserList();
     }
 

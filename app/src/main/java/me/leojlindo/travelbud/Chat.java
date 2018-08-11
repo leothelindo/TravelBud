@@ -8,6 +8,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,13 +30,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -88,6 +94,7 @@ public class Chat extends CustomActivity
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
     NavigationView navigationView;
+    ParseUser currentUser = ParseUser.getCurrentUser();
 
 
     /* (non-Javadoc)
@@ -116,6 +123,26 @@ public class Chat extends CustomActivity
         title = (TextView) findViewById(R.id.buddy_tv);
         title.setText(buddy);
 
+        Button add_btn = findViewById(R.id.add_btn);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Chat.this, "Route Added to Profile", Toast.LENGTH_LONG).show();
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.logo_round);
+                // Convert it to byte
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Compress image to lower quality scale 1 - 100
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+
+
+                ParseFile file = new ParseFile("route1.png", image);
+
+                currentUser.put("route", file);
+                currentUser.saveInBackground();
+            }
+        });
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 
 

@@ -75,14 +75,15 @@
 
         <TextView
             android:id="@+id/bioBody_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/bio_tv"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="biography body"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
@@ -100,6 +101,8 @@
             android:backgroundTint="@color/appGreen"
             android:elevation="10dp"
             android:text="Connect"
+            android:textColor="@color/white"
+            android:textSize="24sp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
