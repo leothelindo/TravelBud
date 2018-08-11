@@ -74,6 +74,8 @@ import static com.parse.Parse.getApplicationContext;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
+    TimePickerFragment timePickerFragment = new TimePickerFragment();
+
     private static final String TAG = "HomeFragment";
 
     private static final String FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -89,7 +91,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     private Button goBtn;
     private Button friendsBtn;
     private Button clearBtn;
-    private Button timeBtn;
+    Button timeBtn;
 
 
     //variables
@@ -107,12 +109,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
     float resultOne;
     private List<LatLng> lstLatLngRoute = new ArrayList<LatLng>();
     Boolean isStartLocation = true;
-    Boolean isEndLocation = false;
     public TimePicker timePicker;
+    private int hour;
+    private int minute;
 
     //bottom sheet
     LinearLayout layoutBottomSheet;
     BottomSheetBehavior sheetBehavior;
+
 
     //onCreateView method is called when Fragment should create its View object hierarchy
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -155,8 +159,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                             public void onClick(View v)
                             {
                                 showTimePickerDialog(timePicker);
+
                             }
                         });
+
 
 
                         //when find friends button is clicked
@@ -186,6 +192,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
 
         return view;
 
+    }
+
+
+    public void addTime() {
+        int hour = timePicker.getCurrentHour();
+        int minute = timePicker.getCurrentMinute();
+        timeBtn.setText(hour + ":" + minute);
     }
 
     // This is triggered soon after onCreateView()

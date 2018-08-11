@@ -11,8 +11,11 @@ import java.util.Calendar;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
+    HomeFragment homeFragment = new HomeFragment();
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         // Use the current time as the default values for the picker
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -25,5 +28,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
+        hourOfDay = view.getCurrentHour();
+        minute = view.getCurrentMinute();
+        homeFragment.timeBtn.setText(hourOfDay + ":" + minute);
+
     }
 }
