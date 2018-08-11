@@ -55,8 +55,6 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
     NavigationView navigationView;
     Button add;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +64,8 @@ public class UserList extends AppCompatActivity implements View.OnClickListener{
         add = (Button) findViewById(R.id.add_btn);
         add.setVisibility(View.GONE);
         loadUserList();
-
     }
+
 
     public void loadUserList() {
 
