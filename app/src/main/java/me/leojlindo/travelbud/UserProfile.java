@@ -64,7 +64,7 @@ public class UserProfile extends AppCompatActivity {
         first = (TextView) findViewById(R.id.first_tv);
         first.setText(buddy);
         header = (TextView) findViewById(R.id.buddy_tv);
-        header.setText(buddy);
+        //header.setText(buddy);
         bio = (TextView) findViewById(R.id.bioBody_tv);
         trips = (TextView) findViewById(R.id.trips_tv);
         prof = (ImageView) findViewById(R.id.imageView3);

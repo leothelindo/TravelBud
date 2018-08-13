@@ -15,9 +15,9 @@
         android:id="@+id/user_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/main_color_gray"
-        android:dividerHeight="1dp"
-        tools:listitem="@layout/users"></ListView>
+        android:divider="@color/main_color_gray_lt"
+        android:dividerHeight=".5dp"
+        tools:listitem="@layout/users"/>
 
 
 
