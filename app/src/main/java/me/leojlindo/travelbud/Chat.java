@@ -129,7 +129,7 @@ public class Chat extends CustomActivity
             public void onClick(View view) {
                 Toast.makeText(Chat.this, "Route Added to Profile", Toast.LENGTH_LONG).show();
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                        R.drawable.logo_round);
+                        R.drawable.route);
                 // Convert it to byte
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 // Compress image to lower quality scale 1 - 100
