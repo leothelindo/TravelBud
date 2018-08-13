@@ -36,17 +36,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cast_abc_scrubber_control_to_pressed_mtrl_005" />
 
-    <TextView
-        android:id="@+id/lastname_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/profilepic_iv"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="Last Name"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/profilepic_iv"
-        app:layout_constraintTop_toBottomOf="@+id/user_tv" />
 </android.support.constraint.ConstraintLayout>

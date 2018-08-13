@@ -271,7 +271,7 @@ public class Chat extends CustomActivity
                 }, 1000);
             }
         });
-        notificationCall();
+        //notificationCall();
     }
 
     public void notificationCall(){

@@ -120,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
         firstname_tv = (TextView) headerView.findViewById(R.id.user_tv);
         firstname_tv.setText(ParseUser.getCurrentUser().get("firstName").toString());
-        lastname_tv = (TextView) headerView.findViewById(R.id.lastname_tv);
-        lastname_tv.setText(ParseUser.getCurrentUser().get("lastName").toString());
 
         prof_iv = (ImageView) headerView.findViewById(R.id.profilepic_iv);
         ParseFile imageFile = (ParseFile) ParseUser.getCurrentUser().get("picture");

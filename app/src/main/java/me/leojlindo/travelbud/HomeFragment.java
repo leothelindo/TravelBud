@@ -1,6 +1,7 @@
 package me.leojlindo.travelbud;
 
 import android.annotation.SuppressLint;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -163,8 +164,43 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                             @Override
                             public void onClick(View v)
                             {
-                                showTimePickerDialog(timePicker);
-                                addTime();
+
+                                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                                    @Override
+                                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                                        hour = hourOfDay;
+                                        minutes = minute;
+                                        String timeSet = "";
+                                        if (hour > 12) {
+                                            hour -= 12;
+                                            timeSet = "PM";
+                                        } else if (hour == 0) {
+                                            hour += 12;
+                                            timeSet = "AM";
+                                        } else if (hour == 12){
+                                            timeSet = "PM";
+                                        }else{
+                                            timeSet = "AM";
+                                        }
+
+                                        String min = "";
+                                        if (minutes < 10)
+                                            min = "0" + minutes ;
+                                        else
+                                            min = String.valueOf(minutes);
+
+                                        // Append in a StringBuilder
+                                        String aTime = new StringBuilder().append(hour).append(':')
+                                                .append(min ).append(" ").append(timeSet).toString();
+                                        timeBtn.setText("Trip time is " + aTime);
+
+                                    }
+                                }, 0, 0, false);
+
+                                timePickerDialog.show();
+                                //showTimePickerDialog(timePicker);
+
+
 
                             }
                         });
