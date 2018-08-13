@@ -158,7 +158,7 @@
 
     <ImageView
         android:id="@+id/your_route"
-        android:layout_width="376dp"
+        android:layout_width="366dp"
         android:layout_height="337dp"
         android:layout_alignStart="@+id/textView2"
         android:layout_below="@+id/routes"

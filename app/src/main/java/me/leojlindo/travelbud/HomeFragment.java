@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback, Google
                             public void onClick(View v)
                             {
                                 showTimePickerDialog(timePicker);
-                                timeBtn.setText(hour + ":" + minute);
+                                addTime();
 
                             }
                         });
