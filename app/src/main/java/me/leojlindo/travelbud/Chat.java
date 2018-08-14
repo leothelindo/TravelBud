@@ -354,8 +354,8 @@ public class Chat extends CustomActivity
             lbl = (TextView) v.findViewById(R.id.lbl2);
             lbl.setText(c.getMsg());
 
-            lbl = (TextView) v.findViewById(R.id.lbl3);
-            if (c.isSent()) {
+            //lbl = (TextView) v.findViewById(R.id.lbl3);
+            /*if (c.isSent()) {
                 if (c.getStatus() == Conversation.STATUS_SENT)
                     lbl.setText(R.string.delivered_text);
                 else {
@@ -366,7 +366,7 @@ public class Chat extends CustomActivity
                     }
                 }
             } else
-                lbl.setText("");
+                lbl.setText("");*/
 
             return v;
         }

@@ -6,34 +6,39 @@
     android:orientation="vertical"
     >
 
+    <TextView
+        android:id="@+id/lbl1"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_10dp"
+        android:text="TextView"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/main_color_gray_dk"
+        android:textSize="@dimen/txt_13sp" />
+
     <LinearLayout
         android:id="@+id/v1"
         android:layout_width="wrap_content"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="@dimen/pad_10dp"
-        android:background="@drawable/chat_bubble_gray"
+        android:background="@drawable/chat_bubble_buddy"
         android:elevation="10dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/pad_5dp"
-        android:paddingLeft="@dimen/pad_chat_item"
-        android:paddingTop="@dimen/pad_5dp">
-
-        <TextView
-            android:id="@+id/lbl1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/pad_10dp"
-            android:text="TextView"
-            android:textColor="@color/main_color_gray_dk"
-            android:textSize="@dimen/txt_13sp" />
+        android:paddingBottom="2dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:paddingRight="5dp">
 
         <TextView
             android:id="@+id/lbl2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/pad_10dp"
-            android:layout_marginTop="@dimen/pad_15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight= "5dp"
+            android:gravity="center"
             android:elevation="10dp"
             android:maxLines="4"
             android:text="text"
@@ -42,16 +47,4 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/lbl3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="text"
-        android:textColor="@color/main_color_gray"
-        android:textSize="@dimen/txt_14sp"
-        android:layout_alignRight="@+id/v1"
-        android:layout_below="@+id/v1"
-        android:layout_marginTop="@dimen/pad_5dp"
-        android:layout_marginLeft="@dimen/pad_20dp"
-        />
 </LinearLayout>

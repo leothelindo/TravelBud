@@ -100,7 +100,7 @@
             android:background="@drawable/roundedbutton"
             android:backgroundTint="@color/appGreen"
             android:elevation="10dp"
-            android:text="Connect"
+            android:text="ConneKt"
             android:textColor="@color/white"
             android:textSize="24sp"
 
